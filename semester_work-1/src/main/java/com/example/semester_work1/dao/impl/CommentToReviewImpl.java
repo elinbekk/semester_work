@@ -8,8 +8,7 @@ import java.util.Optional;
 
 public class CommentToReviewImpl implements CommentToReviewDao {
     @Override
-    public CommentToReview save(CommentToReview item) {
-        return null;
+    public void save(CommentToReview item) {
     }
 
     @Override

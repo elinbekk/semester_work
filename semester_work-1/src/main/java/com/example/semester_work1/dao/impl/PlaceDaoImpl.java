@@ -14,8 +14,7 @@ import java.util.Optional;
 
 public class PlaceDaoImpl implements PlaceDao {
     @Override
-    public Place save(Place item) {
-        return null;
+    public void save(Place item) {
     }
 
     @Override

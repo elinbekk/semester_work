@@ -1,30 +1,36 @@
 package com.example.semester_work1.models;
 
 public class User {
-    private Integer userId;
+    private String userId;
     private String name;
     private String lastName;
     private String email;
-    private String hashPassword;
+    private String password;
     private String photoRef;
 
-    public User(Integer userId, String name, String lastName, String email, String hashPassword, String photoRef) {
+    public User(String userId, String name, String lastName, String email, String password, String photoRef) {
         this.userId = userId;
         this.name = name;
         this.lastName = lastName;
         this.email = email;
-        this.hashPassword = hashPassword;
+        this.password = password;
         this.photoRef = photoRef;
     }
 
-    public User(String name, String lastName, String email, String hashPassword) {
+    public User(String name, String lastName, String email, String password) {
+        this.userId = null;
         this.name = name;
         this.lastName = lastName;
         this.email = email;
-        this.hashPassword = hashPassword;
+        this.password = password;
     }
 
-    public Integer getUserId() {
+    public User(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
+    public String getUserId() {
         return userId;
     }
 
@@ -40,15 +46,15 @@ public class User {
         return email;
     }
 
-    public String getHashPassword() {
-        return hashPassword;
+    public String getPassword() {
+        return password;
     }
 
     public String getPhotoRef() {
         return photoRef;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
 
@@ -64,8 +70,8 @@ public class User {
         this.email = login;
     }
 
-    public void setHashPassword(String hashPassword) {
-        this.hashPassword = hashPassword;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public void setPhotoRef(String photoRef) {

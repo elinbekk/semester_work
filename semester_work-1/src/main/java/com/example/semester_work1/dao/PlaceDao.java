@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PlaceDao extends Dao<Place, Integer> {
-    Place save(Place item);
+    void save(Place item);
     FavouritePlace saveFp(FavouritePlace item);
     boolean isFavourite(FavouritePlace fp);
     List<Place> getAll();

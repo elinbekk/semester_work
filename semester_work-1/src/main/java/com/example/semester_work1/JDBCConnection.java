@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+
 public class JDBCConnection {
     private static Connection conn = null;
     private final static String URL = "jdbc:postgresql://localhost:5432/postgres";

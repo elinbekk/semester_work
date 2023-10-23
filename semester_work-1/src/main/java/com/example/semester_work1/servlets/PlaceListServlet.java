@@ -25,14 +25,14 @@ public class PlaceListServlet extends HttpServlet {
     private PlaceDaoImpl placeDao;
 
     @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
+    public void init() throws ServletException {
+        FreemarkerConfigSingleton.setServletContext(this.getServletContext());
         placeDao = (PlaceDaoImpl) getServletContext().getAttribute("placeDao");
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Template tmpl = FreemarkerConfigSingleton.getCfg().getTemplate("who_voted.ftl");
+        Template tmpl = FreemarkerConfigSingleton.getCfg().getTemplate("placeList.ftl");
         List<Place> users = placeDao.getAll();
         HashMap<String, Object> root = new HashMap<>();
         root.put("places", users);

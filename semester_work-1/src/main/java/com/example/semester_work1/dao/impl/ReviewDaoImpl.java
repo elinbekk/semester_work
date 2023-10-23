@@ -9,8 +9,7 @@ import java.util.Optional;
 public class ReviewDaoImpl implements ReviewDao {
 
     @Override
-    public Review save(Review item) {
-        return null;
+    public void save(Review item) {
     }
 
     @Override

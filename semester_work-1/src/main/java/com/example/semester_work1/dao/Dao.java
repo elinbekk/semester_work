@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface Dao<T, K> {
-    T save(T item) throws SQLException;
+    void save(T item) throws SQLException;
     List<T> getAll();
     Optional<T> getById(K id);
     void delete(K id);

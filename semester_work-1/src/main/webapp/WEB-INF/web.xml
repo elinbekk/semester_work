@@ -11,6 +11,15 @@
         <servlet-name>registration</servlet-name>
         <url-pattern>/registration</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>auth</servlet-name>
+        <servlet-class>com.example.semester_work1.servlets.AuthorizationServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>auth</servlet-name>
+        <url-pattern>/auth</url-pattern>
+    </servlet-mapping>
 
     <servlet>
         <servlet-name>places</servlet-name>
@@ -29,4 +38,14 @@
         <servlet-name>place</servlet-name>
         <url-pattern>/places/detail</url-pattern>
     </servlet-mapping>
+
+    <filter>
+        <filter-name>authFilter</filter-name>
+        <filter-class>com.example.semester_work1.filters.AuthFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>authFilter</filter-name>
+        <url-pattern>/place</url-pattern>
+    </filter-mapping>
+    
 </web-app>

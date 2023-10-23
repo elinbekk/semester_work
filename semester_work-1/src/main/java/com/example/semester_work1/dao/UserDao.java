@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserDao extends Dao<User, Integer> {
-    User save(User item) throws SQLException;
+    void save(User item) throws SQLException;
     List<User> getAll();
     Optional<User> getById(Integer id);
     void delete(Integer id);

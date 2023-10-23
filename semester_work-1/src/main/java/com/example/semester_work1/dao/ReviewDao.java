@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ReviewDao extends Dao<Review, Integer> {
-    Review save(Review item);
+    void save(Review item);
     List<Review> getAll();
     Optional<Review> getById(Integer id);
     void delete(Integer id);

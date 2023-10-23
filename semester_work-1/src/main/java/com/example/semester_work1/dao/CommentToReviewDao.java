@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CommentToReviewDao extends Dao<CommentToReview, Integer> {
-    CommentToReview save(CommentToReview item);
+    void save(CommentToReview item);
     List<CommentToReview> getAll();
     Optional<CommentToReview> getById(Integer id);
     void delete(Integer id);
