@@ -27,7 +27,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>places</servlet-name>
-        <url-pattern>/places</url-pattern>
+        <url-pattern>/places/list</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -39,13 +39,14 @@
         <url-pattern>/places/detail</url-pattern>
     </servlet-mapping>
 
-    <filter>
-        <filter-name>authFilter</filter-name>
-        <filter-class>com.example.semester_work1.filters.AuthFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>authFilter</filter-name>
-        <url-pattern>/place</url-pattern>
-    </filter-mapping>
+<!--    <filter>-->
+<!--        <filter-name>authFilter</filter-name>-->
+<!--        <filter-class>com.example.semester_work1.filters.AuthFilter</filter-class>-->
+<!--    </filter>-->
+<!--    <filter-mapping>-->
+<!--        <filter-name>authFilter</filter-name>-->
+<!--        <url-pattern>/places</url-pattern>-->
+<!--        <url-pattern>/places/*</url-pattern>-->
+<!--    </filter-mapping>-->
     
 </web-app>

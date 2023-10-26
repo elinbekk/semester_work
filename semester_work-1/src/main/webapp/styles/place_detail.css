@@ -1,0 +1,70 @@
+.tourist-place {
+    margin-bottom: 50px;
+}
+
+.place-name {
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.place-address,
+.place-category,
+.place-description,
+.place-price {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.place-rating {
+    margin-top: 20px;
+}
+
+.rating-stars {
+    display: inline-block;
+    width: 64px;
+    height: 64px;
+    background-image:url("/img/stars.png");
+}
+
+.rating-value {
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: 20px;
+}
+
+.place-reviews {
+    margin-top: 30px;
+}
+
+.reviews-list {
+    list-style: none;
+    margin-bottom: 20px;
+}
+
+.review-form label {
+    display: block;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.review-form input,
+.review-form textarea {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.review-form button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.review-form button:hover {
+    background-color: #0062cc;
+}

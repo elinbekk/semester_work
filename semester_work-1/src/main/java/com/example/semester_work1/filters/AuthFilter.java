@@ -11,13 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-
 public class AuthFilter extends HttpFilter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         super.doFilter(request, response, chain);
         HttpSession httpSession = ((HttpServletRequest) request).getSession();
-        if (httpSession.getAttribute("login") == null) {
+        if (httpSession.getAttribute("user") == null) {
             Helpers.redirect((HttpServletResponse) response, (HttpServletRequest) request, "/auth");
         }
         chain.doFilter(request, response);

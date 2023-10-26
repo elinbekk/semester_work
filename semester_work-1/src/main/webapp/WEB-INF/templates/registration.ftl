@@ -23,8 +23,8 @@
         <label>
             <input class="form-control" name="password" type="password" placeholder="ваш пароль">
         </label>
-        <input class="login-button" type="submit">
-
+        <input class="login-button" type="submit" value="Зарегистрироваться">
+        <input class="auth-button" type="submit" value="У меня уже есть аккаунт">
     </form>
 </div>
 </body>

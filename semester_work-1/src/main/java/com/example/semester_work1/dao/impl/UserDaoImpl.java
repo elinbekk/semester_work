@@ -1,6 +1,6 @@
 package com.example.semester_work1.dao.impl;
 
-import com.example.semester_work1.JDBCConnection;
+import com.example.semester_work1.utils.JDBCConnection;
 import com.example.semester_work1.dao.UserDao;
 import com.example.semester_work1.models.User;
 
@@ -31,45 +31,53 @@ public class UserDaoImpl implements UserDao {
     public Optional<User> getUserByEmail(String email) {
         try {
             PreparedStatement statement = JDBCConnection.getConn().prepareStatement(
-                    "select * from places where user_email = ? and user_password = ?"
+                    "select * from users where user_email = ?"
             );
             statement.setString(1, email);
-            return getUser(statement);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                User user = new User(
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5)
+                );
+                return Optional.of(user);
+            } else {
+                return Optional.empty();
+            }
         } catch (SQLException e) {
             return Optional.empty();
         }
     }
 
-    private Optional<User> getUser(PreparedStatement statement) throws SQLException {
-        ResultSet rs = statement.executeQuery();
-        if (rs.next()) {
-            User user = new User(
-                    rs.getString(2),
-                    rs.getString(3),
-                    rs.getString(4),
-                    rs.getString(5)
-            );
-            return Optional.of(user);
-        } else {
-            return Optional.empty();
-        }
-    }
 
     @Override
-    public Optional<User> getById(Integer id) {
+    public Optional<User> getById(String id) {
         try {
             PreparedStatement statement = JDBCConnection.getConn().prepareStatement(
                     "select * from user where user_id = ?"
             );
-            statement.setLong(1, id);
-            return getUser(statement);
+            statement.setString(1, id);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                User user = new User(
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5)
+                );
+                return Optional.of(user);
+            } else {
+                return Optional.empty();
+            }
         } catch (SQLException e) {
             return Optional.empty();
         }
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(String id) {
 
     }
 

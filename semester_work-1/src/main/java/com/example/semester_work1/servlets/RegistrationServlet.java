@@ -1,25 +1,21 @@
 package com.example.semester_work1.servlets;
 
-import com.example.semester_work1.FreemarkerConfigSingleton;
+import com.example.semester_work1.utils.FreemarkerConfigSingleton;
 import com.example.semester_work1.Helpers;
-import com.example.semester_work1.dao.impl.UserDaoImpl;
 import com.example.semester_work1.models.User;
-import com.example.semester_work1.services.PasswordHashService;
 import com.example.semester_work1.services.RegistrationService;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
 import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
-import java.util.UUID;
 
 public class RegistrationServlet extends HttpServlet {
     private RegistrationService registrationService;
@@ -28,8 +24,6 @@ public class RegistrationServlet extends HttpServlet {
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         this.registrationService = (RegistrationService) getServletContext().getAttribute("regService");
-        //ServletContext servletContext = config.getServletContext();
-        //regService = (RegistrationService) servletContext.getAttribute("regService");
         FreemarkerConfigSingleton.setServletContext(this.getServletContext());
     }
 
@@ -48,19 +42,24 @@ public class RegistrationServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         User user;
+        User sessionUser = null;
+        request.setCharacterEncoding("UTF-8");
         String email = request.getParameter("email");
         String name = request.getParameter("name");
         String lastName = request.getParameter("lastName");
         String password = request.getParameter("password");
-        if(email != null && name != null && lastName != null && password != null){
+        if (email != null && name != null && lastName != null && password != null) {
             user = new User(email, name, lastName, password);
             try {
-                registrationService.register(user);
+                sessionUser = registrationService.register(user);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-            request.getSession().setAttribute("user", user);
-            Helpers.redirect(response, request, "/auth");
+            if (sessionUser != null){
+                HttpSession session = request.getSession();
+                session.setAttribute("user", sessionUser);
+                Helpers.redirect(response, request, "/auth");
+            }
         }
     }
 }

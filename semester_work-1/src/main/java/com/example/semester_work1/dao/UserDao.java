@@ -6,10 +6,10 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-public interface UserDao extends Dao<User, Integer> {
+public interface UserDao extends Dao<User, String> {
     void save(User item) throws SQLException;
     List<User> getAll();
-    Optional<User> getById(Integer id);
-    void delete(Integer id);
+    Optional<User> getById(String id);
+    void delete(String id);
     void update(User item);
 }

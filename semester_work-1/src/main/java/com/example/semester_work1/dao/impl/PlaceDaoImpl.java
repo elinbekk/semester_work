@@ -3,7 +3,7 @@ package com.example.semester_work1.dao.impl;
 import com.example.semester_work1.dao.PlaceDao;
 import com.example.semester_work1.models.FavouritePlace;
 import com.example.semester_work1.models.Place;
-import com.example.semester_work1.JDBCConnection;
+import com.example.semester_work1.utils.JDBCConnection;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,6 +15,7 @@ import java.util.Optional;
 public class PlaceDaoImpl implements PlaceDao {
     @Override
     public void save(Place item) {
+
     }
 
     @Override
@@ -27,7 +28,13 @@ public class PlaceDaoImpl implements PlaceDao {
             List<Place> places = new ArrayList<>();
             while (rs.next()) {
                 Place place = new Place(
-                        rs.getString(2)
+                        rs.getString(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getInt(6),
+                        rs.getInt(7)
                 );
                 places.add(place);
             }
@@ -55,12 +62,12 @@ public class PlaceDaoImpl implements PlaceDao {
     }
 
     @Override
-    public Optional<Place> getById(Integer id) {
+    public Optional<Place> getById(String id) {
         try {
             PreparedStatement statement = JDBCConnection.getConn().prepareStatement(
                     "select * from places where place_id = ?"
             );
-            statement.setLong(1, id);
+            statement.setInt(1, Integer.parseInt(id));
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
                 Place place = new Place(
@@ -70,8 +77,6 @@ public class PlaceDaoImpl implements PlaceDao {
                         rs.getString(5),
                         rs.getInt(6),
                         rs.getInt(7)
-
-
                 );
                 return Optional.of(place);
             } else {
@@ -83,7 +88,7 @@ public class PlaceDaoImpl implements PlaceDao {
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(String id) {
 
     }
 

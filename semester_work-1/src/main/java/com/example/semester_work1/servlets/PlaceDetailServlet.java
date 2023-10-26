@@ -1,6 +1,6 @@
 package com.example.semester_work1.servlets;
 
-import com.example.semester_work1.FreemarkerConfigSingleton;
+import com.example.semester_work1.utils.FreemarkerConfigSingleton;
 import com.example.semester_work1.dao.impl.PlaceDaoImpl;
 import com.example.semester_work1.models.Place;
 import freemarker.template.Template;
@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -19,32 +20,28 @@ public class PlaceDetailServlet extends HttpServlet {
     private PlaceDaoImpl placeDao;
 
     @Override
-    public void init() throws ServletException {
+    public void init() {
+        placeDao = (PlaceDaoImpl) getServletContext().getAttribute("placeDao");
         FreemarkerConfigSingleton.setServletContext(this.getServletContext());
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Template tmpl = FreemarkerConfigSingleton.getCfg().getTemplate("place_detail.ftl");
         String id = request.getParameter("placeId");
-        if(id == null){
-
-        }
-        Optional<Place> place  = placeDao.getById(Integer.parseInt(id));
-        if(!place.isPresent()){
+        Place place  = placeDao.getById(id).get();
+        if(place == null){
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
         }
+        HashMap<String, Object> root = new HashMap<>();
+        root.put("place", place);
         request.setAttribute("place", place);
-        Template tmpl = FreemarkerConfigSingleton.getCfg().getTemplate("place_detail.ftl");
+        response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html");
         try {
-            tmpl.process(null, response.getWriter());
+            tmpl.process(root, response.getWriter());
         } catch (TemplateException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
     }
 }

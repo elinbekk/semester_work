@@ -19,7 +19,7 @@
         <label>
             <input class="remember-me" type="checkbox" name="remember" value="on">Запомнить меня
         </label>
-        <input class="login-button" type="submit">
+        <input class="login-button" type="submit" value="Авторизоваться">
     </form>
 </div>
 </body>

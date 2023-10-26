@@ -1,7 +1,7 @@
 package com.example.semester_work1.models;
 
 public class Place {
-    private int placeId;
+    private String placeId;
     private String title;
     private String address;
     private String category;
@@ -9,7 +9,7 @@ public class Place {
     private int price;
     private int rating;
 
-    public Place(int placeId, String title, String address, String category, String description, int price, int rating) {
+    public Place(String placeId, String title, String address, String category, String description, int price, int rating) {
         this.placeId = placeId;
         this.title = title;
         this.address = address;
@@ -32,7 +32,7 @@ public class Place {
         this.title = title;
     }
 
-    public int getPlaceId() {
+    public String getPlaceId() {
         return placeId;
     }
 

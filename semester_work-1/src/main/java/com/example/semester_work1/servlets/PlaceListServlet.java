@@ -1,31 +1,26 @@
 package com.example.semester_work1.servlets;
 
-import com.example.semester_work1.FreemarkerConfigSingleton;
+import com.example.semester_work1.Helpers;
+import com.example.semester_work1.utils.FreemarkerConfigSingleton;
 import com.example.semester_work1.dao.impl.PlaceDaoImpl;
 import com.example.semester_work1.models.Place;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
-
-//<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-//        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-//<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-//        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-//        crossorigin="anonymous"></script>
 public class PlaceListServlet extends HttpServlet {
     private PlaceDaoImpl placeDao;
 
     @Override
-    public void init() throws ServletException {
+    public void init() {
         FreemarkerConfigSingleton.setServletContext(this.getServletContext());
         placeDao = (PlaceDaoImpl) getServletContext().getAttribute("placeDao");
     }
@@ -33,9 +28,11 @@ public class PlaceListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Template tmpl = FreemarkerConfigSingleton.getCfg().getTemplate("placeList.ftl");
-        List<Place> users = placeDao.getAll();
+        List<Place> places = placeDao.getAll();
         HashMap<String, Object> root = new HashMap<>();
-        root.put("places", users);
+        root.put("places", places);
+        request.setAttribute("places", places);
+        response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html");
         try {
             tmpl.process(root, response.getWriter());
