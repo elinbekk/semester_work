@@ -43,5 +43,6 @@ public class PlaceDetailServlet extends HttpServlet {
         } catch (TemplateException e) {
             throw new RuntimeException(e);
         }
+
     }
 }

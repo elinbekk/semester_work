@@ -96,4 +96,31 @@ public class PlaceDaoImpl implements PlaceDao {
     public void update(Place item) {
 
     }
+
+    public List<Place> findByLikeQuery(String query){
+        try {
+            PreparedStatement statement = JDBCConnection.getConn().prepareStatement(
+                    "select * from places where place_title like ?"
+            );
+            statement.setString(1, "%" + query + "%");
+            ResultSet rs = statement.executeQuery();
+            List<Place> places = new ArrayList<>();
+            while (rs.next()) {
+                Place place = new Place(
+                        rs.getString(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getInt(6),
+                        rs.getInt(7)
+                );
+                places.add(place);
+            }
+            return places;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

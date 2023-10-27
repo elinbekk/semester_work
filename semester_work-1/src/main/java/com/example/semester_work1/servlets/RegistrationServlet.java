@@ -42,7 +42,6 @@ public class RegistrationServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         User user;
-        User sessionUser = null;
         request.setCharacterEncoding("UTF-8");
         String email = request.getParameter("email");
         String name = request.getParameter("name");
@@ -51,15 +50,12 @@ public class RegistrationServlet extends HttpServlet {
         if (email != null && name != null && lastName != null && password != null) {
             user = new User(email, name, lastName, password);
             try {
-                sessionUser = registrationService.register(user);
+                registrationService.register(user);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-            if (sessionUser != null){
-                HttpSession session = request.getSession();
-                session.setAttribute("user", sessionUser);
-                Helpers.redirect(response, request, "/auth");
-            }
+            Helpers.redirect(response, request, "/auth");
         }
     }
 }
+

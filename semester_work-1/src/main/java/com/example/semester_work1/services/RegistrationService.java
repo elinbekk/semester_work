@@ -16,7 +16,7 @@ public class RegistrationService {
         this.phs = phs;
     }
 
-    public User register(User user) throws SQLException {
+    public void register(User user) throws SQLException {
         String userID = UUID.randomUUID().toString();
         user.setUserId(userID);
         try {
@@ -25,6 +25,5 @@ public class RegistrationService {
             throw new RuntimeException(e);
         };
         userDao.save(user);
-        return user;
     }
 }

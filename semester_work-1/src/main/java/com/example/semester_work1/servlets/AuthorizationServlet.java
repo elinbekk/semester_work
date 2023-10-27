@@ -56,11 +56,7 @@ public class AuthorizationServlet extends HttpServlet {
                 } catch (NoSuchAlgorithmException e) {
                     throw new RuntimeException(e);
                 }
-                HttpSession session = request.getSession(true);
-                session.setAttribute("user", user);
                 Helpers.redirect(response, request, "/places/list");
-            } else{
-                doGet(request, response);
             }
         }
     }

@@ -15,7 +15,6 @@ public class AuthService {
         if (passwordsAreMatch(user)) {
             request.getSession().setAttribute("user", user);
         }
-
     }
 
     public AuthService(UserDaoImpl userDao, PasswordHashService phs) {

@@ -1,6 +1,7 @@
 package com.example.semester_work1.servlets;
 
 import com.example.semester_work1.Helpers;
+import com.example.semester_work1.models.User;
 import com.example.semester_work1.utils.FreemarkerConfigSingleton;
 import com.example.semester_work1.dao.impl.PlaceDaoImpl;
 import com.example.semester_work1.models.Place;
@@ -16,6 +17,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
+
 public class PlaceListServlet extends HttpServlet {
     private PlaceDaoImpl placeDao;
 
@@ -26,7 +28,7 @@ public class PlaceListServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Template tmpl = FreemarkerConfigSingleton.getCfg().getTemplate("placeList.ftl");
         List<Place> places = placeDao.getAll();
         HashMap<String, Object> root = new HashMap<>();
