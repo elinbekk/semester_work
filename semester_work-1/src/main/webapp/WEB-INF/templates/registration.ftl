@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class="container">
-    <form class="form-center-content" method="post">
+    <form class="form-center-content" method="post" action="registration">
         <div class="form-signin-heading">Регистрация</div>
         <label>
             <input class="form-control" name="email" type="email" placeholder="ваш email">
@@ -24,8 +24,8 @@
             <input class="form-control" name="password" type="password" placeholder="ваш пароль">
         </label>
         <input class="login-button" type="submit" value="Зарегистрироваться">
-        <input class="auth-button" type="submit" value="У меня уже есть аккаунт">
     </form>
+    <form action="auth"><input class="auth-button" type="submit" value="У меня уже есть аккаунт"></form>
 </div>
 </body>
 </html>

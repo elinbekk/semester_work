@@ -39,14 +39,49 @@
         <url-pattern>/places/detail</url-pattern>
     </servlet-mapping>
 
-<!--    <filter>-->
-<!--        <filter-name>authFilter</filter-name>-->
-<!--        <filter-class>com.example.semester_work1.filters.AuthFilter</filter-class>-->
-<!--    </filter>-->
-<!--    <filter-mapping>-->
-<!--        <filter-name>authFilter</filter-name>-->
-<!--        <url-pattern>/places</url-pattern>-->
-<!--        <url-pattern>/places/*</url-pattern>-->
-<!--    </filter-mapping>-->
+    <servlet>
+        <servlet-name>add_review</servlet-name>
+        <servlet-class>com.example.semester_work1.servlets.AddReviewServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>add_review</servlet-name>
+        <url-pattern>/places/add_review</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>profile</servlet-name>
+        <servlet-class>com.example.semester_work1.servlets.UserProfileServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>profile</servlet-name>
+        <url-pattern>/profile</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>signout</servlet-name>
+        <servlet-class>com.example.semester_work1.servlets.SignOutServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>signout</servlet-name>
+        <url-pattern>/signout</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>editProfile</servlet-name>
+        <servlet-class>com.example.semester_work1.servlets.EditProfileServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>editProfile</servlet-name>
+        <url-pattern>/profile/edit</url-pattern>
+    </servlet-mapping>
+
+    <filter>
+        <filter-name>authFilter</filter-name>
+        <filter-class>com.example.semester_work1.filters.AuthFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>authFilter</filter-name>
+        <url-pattern>/places/*</url-pattern>
+    </filter-mapping>
     
 </web-app>

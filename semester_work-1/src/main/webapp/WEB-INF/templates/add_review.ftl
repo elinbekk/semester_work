@@ -23,25 +23,12 @@
 <form action="list">
     <input class="back-button" type="submit" value="Назад">
 </form>
-<a href="add-review?placeId=${place.placeId}">оставить отзыв
-<#--    <input class="review-button" type="submit" value="Оставить отзыв">-->
-</a>
-
-
-<#--    <div class="place-reviews">-->
-<#--        <h3>Отзывы</h3>-->
-<#--        <#list reviews as review>-->
-<#--            <li>${review.author}</li>-->
-<#--        <ul class="reviews-list">-->
-<#--            <!-- Отзывы будут добавляться с помощью JavaScript &ndash;&gt;-->
-<#--        </ul>-->
-<#--        </#list>-->
-<#--        <form class="review-form">-->
-<#--            <label for="review-text">Отзыв:</label>-->
-<#--            <textarea id="review-text" required></textarea>-->
-<#--            <button type="submit">Добавить отзыв</button>-->
-<#--        </form>-->
-<#--    </div>-->
-
+<div class="add-review">
+    <form class="review-form">
+        <label for="review-text">Отзыв:</label>
+        <textarea id="review-text" required></textarea>
+        <input class="review-button" type="submit" value="Оставить отзыв">
+    </form>
+</div>
 </body>
 </html>

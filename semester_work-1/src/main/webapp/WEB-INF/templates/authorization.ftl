@@ -19,7 +19,10 @@
         <label>
             <input class="remember-me" type="checkbox" name="remember" value="on">Запомнить меня
         </label>
-        <input class="login-button" type="submit" value="Авторизоваться">
+        <input class="auth-button" type="submit" value="Авторизоваться">
+    </form>
+    <form action="registration">
+        <input class="login-button" type="submit" value="Назад на страницу регистрации">
     </form>
 </div>
 </body>

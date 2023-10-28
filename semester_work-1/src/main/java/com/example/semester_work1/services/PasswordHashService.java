@@ -1,11 +1,14 @@
 package com.example.semester_work1.services;
 
+import com.example.semester_work1.dao.impl.UserDaoImpl;
+import com.example.semester_work1.models.User;
+
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class PasswordHashService {
-    public String hash(String password) throws NoSuchAlgorithmException {
+    public static String hash(String password) throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("MD5");
         byte[] messageDigest = md.digest(password.getBytes());
         BigInteger bi = new BigInteger(1, messageDigest);
@@ -15,9 +18,4 @@ public class PasswordHashService {
         }
         return hashPassword;
     }
-
-//    public static void main(String[] args) throws NoSuchAlgorithmException {
-//        System.out.println(hash("qwerty"));
-//        System.out.println(hash("qwer"));
-//    }
 }

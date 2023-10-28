@@ -29,17 +29,23 @@ public class PlaceListServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        Template tmpl = FreemarkerConfigSingleton.getCfg().getTemplate("placeList.ftl");
-        List<Place> places = placeDao.getAll();
-        HashMap<String, Object> root = new HashMap<>();
-        root.put("places", places);
-        request.setAttribute("places", places);
-        response.setCharacterEncoding("UTF-8");
-        response.setContentType("text/html");
-        try {
-            tmpl.process(root, response.getWriter());
-        } catch (TemplateException e) {
-            throw new RuntimeException(e);
+        if(request.getSession().getAttribute("user") != null){
+            Template tmpl = FreemarkerConfigSingleton.getCfg().getTemplate("placeList.ftl");
+            List<Place> places = placeDao.getAll();
+            HashMap<String, Object> root = new HashMap<>();
+            root.put("places", places);
+            request.setAttribute("places", places);
+            response.setCharacterEncoding("UTF-8");
+            response.setContentType("text/html");
+            try {
+                tmpl.process(root, response.getWriter());
+            } catch (TemplateException e) {
+                throw new RuntimeException(e);
+            }
         }
+        else{
+            System.out.println("session is null");
+        }
+
     }
 }
