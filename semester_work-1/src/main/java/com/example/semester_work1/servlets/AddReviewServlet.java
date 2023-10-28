@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.SortedMap;
 
 public class AddReviewServlet extends HttpServlet {
     PlaceDaoImpl placeDao;
@@ -25,6 +27,7 @@ public class AddReviewServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Template tmpl = FreemarkerConfigSingleton.getCfg().getTemplate("add_review.ftl");
         String id = request.getParameter("placeId");
+        System.err.println("id: " + id);
         Place place  = placeDao.getById(id).get();
         HashMap<String, Object> root = new HashMap<>();
         root.put("place", place);

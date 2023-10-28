@@ -83,6 +83,11 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void update(User item) {
-
+//        try {
+//            PreparedStatement statement = JDBCConnection.getConn().prepareStatement(
+//                    "update users set where"
+//            );
+//
+//        }
     }
 }
