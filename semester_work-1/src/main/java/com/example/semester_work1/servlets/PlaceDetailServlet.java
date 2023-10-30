@@ -1,5 +1,7 @@
 package com.example.semester_work1.servlets;
 
+import com.example.semester_work1.dao.impl.ReviewDaoImpl;
+import com.example.semester_work1.models.Review;
 import com.example.semester_work1.utils.FreemarkerConfigSingleton;
 import com.example.semester_work1.dao.impl.PlaceDaoImpl;
 import com.example.semester_work1.models.Place;
@@ -18,10 +20,11 @@ import java.util.Optional;
 
 public class PlaceDetailServlet extends HttpServlet {
     private PlaceDaoImpl placeDao;
-
+    ReviewDaoImpl reviewDao;
     @Override
     public void init() {
         placeDao = (PlaceDaoImpl) getServletContext().getAttribute("placeDao");
+        reviewDao = (ReviewDaoImpl) getServletContext().getAttribute("reviewDao");
         FreemarkerConfigSingleton.setServletContext(this.getServletContext());
     }
 
@@ -30,11 +33,13 @@ public class PlaceDetailServlet extends HttpServlet {
         Template tmpl = FreemarkerConfigSingleton.getCfg().getTemplate("place_detail.ftl");
         String id = request.getParameter("placeId");
         Place place  = placeDao.getById(id).get();
+        List<Review> reviewList = reviewDao.getReviewsByPlaceId(Integer.valueOf(id));
         if(place == null){
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
         }
         HashMap<String, Object> root = new HashMap<>();
         root.put("place", place);
+        root.put("reviews", reviewList);
         request.setAttribute("place", place);
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html");
@@ -43,6 +48,5 @@ public class PlaceDetailServlet extends HttpServlet {
         } catch (TemplateException e) {
             throw new RuntimeException(e);
         }
-
     }
 }

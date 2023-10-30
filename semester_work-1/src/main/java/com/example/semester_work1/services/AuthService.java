@@ -4,6 +4,7 @@ import com.example.semester_work1.dao.impl.UserDaoImpl;
 import com.example.semester_work1.models.User;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
 

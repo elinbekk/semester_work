@@ -29,7 +29,7 @@ public class PlaceListServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        if(request.getSession().getAttribute("user") != null){
+        if(request.getSession(false).getAttribute("user") != null){
             Template tmpl = FreemarkerConfigSingleton.getCfg().getTemplate("placeList.ftl");
             List<Place> places = placeDao.getAll();
             HashMap<String, Object> root = new HashMap<>();
@@ -43,9 +43,5 @@ public class PlaceListServlet extends HttpServlet {
                 throw new RuntimeException(e);
             }
         }
-        else{
-            System.out.println("session is null");
-        }
-
     }
 }

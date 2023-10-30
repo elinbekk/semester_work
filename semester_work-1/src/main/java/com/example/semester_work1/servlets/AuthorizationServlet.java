@@ -45,7 +45,6 @@ public class AuthorizationServlet extends HttpServlet {
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String remember = request.getParameter("remember");
-        request.getSession(false);
         if (email != null && password != null) {
             if (authService.isExist(email)) {
                 User user = userDao.getUserByEmail(email).get();
@@ -60,5 +59,6 @@ public class AuthorizationServlet extends HttpServlet {
                 Helpers.redirect(response, request, "/places/list");
             }
         }
+
     }
 }

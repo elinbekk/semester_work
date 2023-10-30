@@ -17,10 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.Date;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.SortedMap;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class AddReviewServlet extends HttpServlet {
     PlaceDaoImpl placeDao;
@@ -29,20 +27,25 @@ public class AddReviewServlet extends HttpServlet {
     public void init(){
         FreemarkerConfigSingleton.setServletContext(this.getServletContext());
         placeDao = (PlaceDaoImpl) getServletContext().getAttribute("placeDao");
+        reviewDao = (ReviewDaoImpl) getServletContext().getAttribute("reviewDao");
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Template tmpl = FreemarkerConfigSingleton.getCfg().getTemplate("add_review.ftl");
         String id = request.getParameter("placeId");
+        //TODO исправить тип айди
         Place place  = placeDao.getById(id).get();
+        List<Review> reviewsList = reviewDao.getReviewsByPlaceId(Integer.valueOf(id));
         HashMap<String, Object> root = new HashMap<>();
+        HashMap<String, Object> reviews = new HashMap<>();
         root.put("place", place);
-        request.setAttribute("place", place);
+        reviews.put("reviews", reviewsList);
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html");
         try {
             tmpl.process(root, response.getWriter());
+            tmpl.process(reviews, response.getWriter());
         } catch (TemplateException e) {
             throw new RuntimeException(e);
         }
@@ -54,11 +57,15 @@ public class AddReviewServlet extends HttpServlet {
         String text = request.getParameter("review-text");
         int assessment = Integer.parseInt(request.getParameter("assessment"));
         User author = ((User) request.getSession().getAttribute("user"));
-        Date reviewDate = new Date();
+        String reviewDate = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
         int placeId = Integer.parseInt(request.getParameter("placeId"));
         if (text != null && request.getParameter("assessment") != null) {
             review = new Review(1, author.getUserId(), text, assessment, reviewDate, placeId);
-            reviewDao.save(review);
+            try {
+                reviewDao.save(review);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }

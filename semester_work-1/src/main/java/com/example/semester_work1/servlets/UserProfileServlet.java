@@ -17,7 +17,7 @@ import java.util.Map;
 public class UserProfileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        User user = (User) request.getSession().getAttribute("user");
+        User user = (User) request.getSession(false).getAttribute("user");
         Template tmpl = FreemarkerConfigSingleton.getCfg().getTemplate("profile.ftl");
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
