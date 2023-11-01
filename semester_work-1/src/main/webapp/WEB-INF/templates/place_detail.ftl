@@ -27,8 +27,17 @@
     <input type="hidden" name="placeId" value="${place.getPlaceId()}">
     <input class="review-button" type="submit" value="Оставить отзыв">
 </form>
-
-<div class="place-reviews">
+<div class="image-block">
+    <h3>Фотографии</h3>
+    <#if images??>
+        <#list images as image>
+            <img src="${image.src}" alt="${image.description}" width="200">
+        </#list>
+    <#else>
+        <p class="aa">фотографий пока нет(</p>
+    </#if>
+</div>
+<div class="place-reviews-block">
     <h3>Отзывы</h3>
     <#list reviews as review>
         <#if review??>
@@ -43,8 +52,6 @@
             </a>
         </#if>
     </#list>
-
 </div>
-
 </body>
 </html>

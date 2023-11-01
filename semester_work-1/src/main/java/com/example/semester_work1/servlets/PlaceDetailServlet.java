@@ -1,6 +1,8 @@
 package com.example.semester_work1.servlets;
 
+import com.example.semester_work1.dao.impl.ImageDaoImpl;
 import com.example.semester_work1.dao.impl.ReviewDaoImpl;
+import com.example.semester_work1.models.Image;
 import com.example.semester_work1.models.Review;
 import com.example.semester_work1.utils.FreemarkerConfigSingleton;
 import com.example.semester_work1.dao.impl.PlaceDaoImpl;
@@ -20,11 +22,13 @@ import java.util.Optional;
 
 public class PlaceDetailServlet extends HttpServlet {
     private PlaceDaoImpl placeDao;
-    ReviewDaoImpl reviewDao;
+    private ReviewDaoImpl reviewDao;
+    private ImageDaoImpl imageDao;
     @Override
     public void init() {
         placeDao = (PlaceDaoImpl) getServletContext().getAttribute("placeDao");
         reviewDao = (ReviewDaoImpl) getServletContext().getAttribute("reviewDao");
+        imageDao = (ImageDaoImpl) getServletContext().getAttribute("imageDao");
         FreemarkerConfigSingleton.setServletContext(this.getServletContext());
     }
 
@@ -34,12 +38,11 @@ public class PlaceDetailServlet extends HttpServlet {
         String id = request.getParameter("placeId");
         Place place  = placeDao.getById(id).get();
         List<Review> reviewList = reviewDao.getReviewsByPlaceId(Integer.valueOf(id));
-        if(place == null){
-            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-        }
+        List<Image> imageList = imageDao.getImagesByPlaceId(Integer.valueOf(id));
         HashMap<String, Object> root = new HashMap<>();
         root.put("place", place);
         root.put("reviews", reviewList);
+        root.put("images", imageList);
         request.setAttribute("place", place);
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html");
