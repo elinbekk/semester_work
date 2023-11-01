@@ -38,14 +38,12 @@ public class AddReviewServlet extends HttpServlet {
         Place place  = placeDao.getById(id).get();
         List<Review> reviewsList = reviewDao.getReviewsByPlaceId(Integer.valueOf(id));
         HashMap<String, Object> root = new HashMap<>();
-        HashMap<String, Object> reviews = new HashMap<>();
         root.put("place", place);
-        reviews.put("reviews", reviewsList);
+        root.put("reviews", reviewsList);
         response.setCharacterEncoding("UTF-8");
         response.setContentType("text/html");
         try {
             tmpl.process(root, response.getWriter());
-            tmpl.process(reviews, response.getWriter());
         } catch (TemplateException e) {
             throw new RuntimeException(e);
         }

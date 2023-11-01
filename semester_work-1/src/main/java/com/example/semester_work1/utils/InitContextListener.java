@@ -1,6 +1,6 @@
 package com.example.semester_work1.utils;
 
-import com.example.semester_work1.dao.impl.CommentToReviewImpl;
+import com.example.semester_work1.dao.impl.CommentToReviewDaoImpl;
 import com.example.semester_work1.dao.impl.PlaceDaoImpl;
 import com.example.semester_work1.dao.impl.ReviewDaoImpl;
 import com.example.semester_work1.dao.impl.UserDaoImpl;
@@ -24,6 +24,6 @@ public class InitContextListener implements ServletContextListener {
         sce.getServletContext().setAttribute("regService", new RegistrationService(udi, phs));
         sce.getServletContext().setAttribute("placeDao", new PlaceDaoImpl());
         sce.getServletContext().setAttribute("reviewDao", new ReviewDaoImpl());
-        sce.getServletContext().setAttribute("commentDao", new CommentToReviewImpl());
+        sce.getServletContext().setAttribute("commentDao", new CommentToReviewDaoImpl());
     }
 }

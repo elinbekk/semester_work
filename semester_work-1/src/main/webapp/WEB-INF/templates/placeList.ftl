@@ -9,9 +9,40 @@
 <body>
 <#include "nav.ftl"/>
     <h1>Кая барырга?</h1>
-    <label for="site-search">Search the site:</label>
-    <input type="search" id="site-search" name="q" />
-    <button>Search</button>
+    <label for="site-search">Поиск</label>
+    <input type="search" id="place-search" name="q" />
+    <button>Найти</button>
+
+<p><input id="query" oninput="f()"/></p>
+
+
+<div id="res"></div>
+
+<script type="application/javascript">
+    function f() {
+        if ($("#query").val().length >= 1) {
+            $.ajax({
+                url: "/dosearch",
+                data: {"query": $("#query").val()},
+                dataType: "json",
+                success: function (msg) {
+                    if (msg.objects.length > 0) {
+                        $("#res").html("");
+                        for (var i = 0; i < msg.objects.length; i++) {
+                            $("#res").append("<li>" + msg.objects[i].name + "</li>");
+                        }
+                    } else {
+                        $("#res").html("No results..");
+                    }
+                }
+            })
+        }
+        else {
+            $("#res").html("");
+        }
+    }
+</script>
+
     <#list places as place>
         <div class="place-card">
             <#if place??>
