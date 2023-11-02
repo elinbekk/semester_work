@@ -27,18 +27,30 @@
     <form class="review-form" method="post">
         <label for="review-text">Отзыв:</label>
         <textarea id="review-text" required name="review-text"></textarea>
+        <span class="message">Максимальное количество символов - 20. Сейчас введено: </span>
+        <span id="counter">0</span>
         <div>
             <input type="radio" id="choice1" name="assessment" value="1"/>
-            <label for="contactChoice1">1</label>
+            <label for="choice1">1</label>
             <input type="radio" id="choice2" name="assessment" value="2"/>
-            <label for="contactChoice2">2</label>
+            <label for="choice2">2</label>
             <input type="radio" id="choice3" name="assessment" value="3"/>
-            <label for="contactChoice3">3</label>
+            <label for="choice3">3</label>
             <input type="radio" id="choice4" name="assessment" value="4"/>
-            <label for="contactChoice3">4</label>
+            <label for="choice4">4</label>
             <input type="radio" id="choice5" name="assessment" value="5"/>
-            <label for="contactChoice3">5</label>
+            <label for="choice5">5</label>
         </div>
+        <script>
+            const obj = document.getElementById('review-text');
+            obj.oninput = function() {
+                let textArea = document.getElementById("review-text");
+                document.getElementById('counter').innerText = textArea.value.length;
+                if(textArea.value.length === 20){
+                    alert('Введено максимальное количество символов😊');
+                }
+            };
+        </script>
             <input class="review-button" type="submit" value="Оставить отзыв">
     </form>
 </div>

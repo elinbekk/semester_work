@@ -8,12 +8,10 @@
 </head>
 <body>
 <#include "nav.ftl"/>
-    <h1>Кая барырга?</h1>
-    <label for="site-search">Поиск</label>
-    <input type="search" id="place-search" name="q" />
-    <button>Найти</button>
-
+<h1>Кая барырга?</h1>
+<label for="site-search">Поиск</label>
 <p><input id="query" oninput="f()"/></p>
+<button>Найти</button>
 
 
 <div id="res"></div>
@@ -36,19 +34,18 @@
                     }
                 }
             })
-        }
-        else {
+        } else {
             $("#res").html("");
         }
     }
 </script>
 
-    <#list places as place>
-        <div class="place-card">
-            <#if place??>
-                <a class="place-name" href="detail?placeId=${place.placeId}">${place.title}</a>
-            </#if>
-        </div>
-    </#list>
+<#list places as place>
+    <div class="place-card">
+        <#if place??>
+            <a class="place-name" href="detail?placeId=${place.placeId}">${place.title}</a>
+        </#if>
+    </div>
+</#list>
 </body>
 </html>
