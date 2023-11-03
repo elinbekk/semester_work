@@ -9,27 +9,31 @@
 <body>
 <#include "nav.ftl"/>
 <div class="user-page">
+    <#if photo??>
+        <img src="img/${photo.getOriginalFileName()}" alt="profile_picture" width="200" height="200">
+    <#else>
+        <img src="img/no_photo.jpg" alt="profile_picture" width="200" height="200">
+    </#if>
     <p class="user-name">Имя: ${user.getName()}</p>
     <p class="user-lastname">Фамилия: ${user.getLastName()}</p>
     <p class="user-email">Email: ${user.getEmail()}</p>
 
     <div class="edit-form">
-        <label>
-            <input type="text" class="edit-name" value="${user.getName()}">
-        </label>
-        <label>
-            <input type="text" class="edit-lastname" value="${user.getLastName()}">
-        </label>
-        <label>
-            <input type="text" class="edit-email" value="${user.getEmail()}">
-        </label>
-        <label for="avatar">Choose a profile picture:</label>
-        <input type="file" id="avatar" name="avatar" accept="image/*" />
+<#--        <label>-->
+<#--            <input type="text" class="edit-name" value="${user.getName()}">-->
+<#--        </label>-->
+<#--        <label>-->
+<#--            <input type="text" class="edit-lastname" value="${user.getLastName()}">-->
+<#--        </label>-->
+<#--        <label>-->
+<#--            <input type="text" class="edit-email" value="${user.getEmail()}">-->
+<#--        </label>-->
+<#--        <label for="avatar">Choose a profile picture:</label>-->
+        <form action="edit" method="post" enctype="multipart/form-data">
+            <input type="file" id="avatar" name="avatar" accept="image/*" />
+            <input class="edit-button" type="submit" value="Обновить фото профиля">
+        </form>
     </div>
-
 </div>
-<form action="profile">
-    <input class="edit-button" type="submit" value="Сохранить">
-</form>
 </body>
 </html>

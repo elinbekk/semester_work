@@ -9,6 +9,11 @@
 <body>
 <#include "nav.ftl"/>
 <div class="user-page">
+    <#if photo??>
+        <img src="img/${photo.getOriginalFileName()}" alt="profile_picture" width="200" height="200">
+        <#else>
+            <img src="img/no_photo.jpg" alt="profile_picture" width="200" height="200">
+    </#if>
     <p class="user-name">Имя: ${user.getName()}</p>
     <p class="user-lastname">Фамилия: ${user.getLastName()}</p>
     <p class="user-email">Email: ${user.getEmail()}</p>
