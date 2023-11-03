@@ -34,7 +34,8 @@ public class PlaceDaoImpl implements PlaceDao {
                         rs.getString(4),
                         rs.getString(5),
                         rs.getInt(6),
-                        rs.getInt(7)
+                        rs.getDouble(7),
+                        rs.getString(8)
                 );
                 places.add(place);
             }
@@ -77,7 +78,8 @@ public class PlaceDaoImpl implements PlaceDao {
                         rs.getString(4),
                         rs.getString(5),
                         rs.getInt(6),
-                        rs.getInt(7)
+                        rs.getDouble(7),
+                        rs.getString(8)
                 );
                 return Optional.of(place);
             } else {
@@ -114,7 +116,8 @@ public class PlaceDaoImpl implements PlaceDao {
                         rs.getString(4),
                         rs.getString(5),
                         rs.getInt(6),
-                        rs.getInt(7)
+                        rs.getDouble(7),
+                        rs.getString(8)
                 );
                 places.add(place);
             }
@@ -124,4 +127,5 @@ public class PlaceDaoImpl implements PlaceDao {
             return null;
         }
     }
+
 }

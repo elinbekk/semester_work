@@ -90,4 +90,25 @@ public class ReviewDaoImpl implements ReviewDao {
             return null;
         }
     }
+    public double calculateRating(Integer placeId) throws SQLException {
+        PreparedStatement statement = JDBCConnection.getConn().prepareStatement("select sum(assessment) from reviews where place_id=?");
+        PreparedStatement statement1 = JDBCConnection.getConn().prepareStatement("select count(assessment) from reviews where place_id=?");
+        statement.setInt(1, placeId);
+        statement1.setInt(1, placeId);
+        ResultSet rs = statement.executeQuery();
+        ResultSet rs1 = statement1.executeQuery();
+        double sum = 0;
+        double count = 0;
+        while (rs.next()) {
+            sum = rs.getInt(1);
+        }
+        while (rs1.next()) {
+            count = rs1.getInt(1);
+        }
+        if (count == 0) {
+            return 0;
+        } else {
+            return sum/count;
+        }
+    }
 }

@@ -1,9 +1,10 @@
 <a href="http://localhost:8080/semester_work_1_war_exploded/places/list">Куда пойти?</a> |
-<a class="btn dropdown-toggle" href="http://localhost:8080/semester_work_1_war_exploded/profile" role="button"
+<a class="btn dropdown-toggle"  role="button"
    id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
     Мой профиль
 </a>
 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+    <li><a class="dropdown-item" href="http://localhost:8080/semester_work_1_war_exploded/profile">Профиль</a></li>
     <li><a class="dropdown-item" href="http://localhost:8080/semester_work_1_war_exploded/profile/edit">Редактировать</a></li>
     <li><a class="dropdown-item" href="#">Настройки</a></li>
 </ul>

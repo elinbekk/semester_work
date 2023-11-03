@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -37,6 +38,11 @@ public class PlaceDetailServlet extends HttpServlet {
         Template tmpl = FreemarkerConfigSingleton.getCfg().getTemplate("place_detail.ftl");
         String id = request.getParameter("placeId");
         Place place  = placeDao.getById(id).get();
+        try {
+            place.setRating(reviewDao.calculateRating(Integer.valueOf(place.getPlaceId())));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         List<Review> reviewList = reviewDao.getReviewsByPlaceId(Integer.valueOf(id));
         List<Image> imageList = imageDao.getImagesByPlaceId(Integer.valueOf(id));
         HashMap<String, Object> root = new HashMap<>();
