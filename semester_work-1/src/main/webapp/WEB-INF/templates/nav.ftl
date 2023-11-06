@@ -9,7 +9,7 @@
 </ul>
 | <a href="http://localhost:8080/semester_work_1_war_exploded/signout">Выйти</a> |
 <a href="http://localhost:8080/semester_work_1_war_exploded/about_us">О нас</a>|
-<a href="">Избранное</a>|
+<a href="http://localhost:8080/semester_work_1_war_exploded/favourite">Избранное</a>|
 <a href="http://localhost:8080/semester_work_1_war_exploded/places/search">Поиск</a>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

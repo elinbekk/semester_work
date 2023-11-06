@@ -18,45 +18,49 @@
         <span class="rating-stars"></span>
         <span class="rating-value">Рейтинг: ${place.getRating()}</span>
     </div>
-</div>
-<div class="image-block">
-    <h3>Фотографии</h3>
-    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="${place.getImage()}" class="d-block w-100" alt="main_img" width="200">
+    <div class="image-block">
+        <h3>Фотографии</h3>
+        <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="${place.getImage()}" class="d-block w-100" alt="main_img" width="200">
+                </div>
+                <#if images??>
+                    <#list images as image>
+                        <div class="carousel-item">
+                            <img src="${image.src}" class="d-block w-100" alt="${image.description}">
+                        </div>
+                    </#list>
+                </#if>
             </div>
-            <#if images??>
-                <#list images as image>
-                    <div class="carousel-item">
-                        <img src="${image.src}" class="d-block w-100" alt="${image.description}">
-                    </div>
-                </#list>
-            </#if>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
+                    data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
+                    data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
-                data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls"
-                data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
     </div>
+    <button class="button button-like" value="${place.placeId}">
+        <i class="heart"></i>
+        <span>Like</span>
+    </button>
 </div>
+
 <div class="place-reviews-block">
     <h3>Отзывы</h3>
     <#list reviews as review>
         <#if review??>
-            <a href="/detail/rc">
+            <a href="detail/rc">
                 <div class="review-card">
                     <p class="review-text">${review.text}</p>
                     <p class="review-author">${review.authorId}</p>
                     <p class="review-assessment">${review.assessment}</p>
                     <p class="review-date">${review.date}</p>
-                    <p class="re"></p>
                 </div>
             </a>
         </#if>
@@ -72,5 +76,8 @@
     <input type="hidden" name="placeId" value="${place.getPlaceId()}">
     <input class="review-button" type="submit" value="Оставить отзыв">
 </form>
+<script>
+
+</script>
 </body>
 </html>

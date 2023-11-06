@@ -1,10 +1,8 @@
 package com.example.semester_work1.utils;
 
-import com.example.semester_work1.dao.impl.CommentToReviewDaoImpl;
-import com.example.semester_work1.dao.impl.PlaceDaoImpl;
-import com.example.semester_work1.dao.impl.ReviewDaoImpl;
-import com.example.semester_work1.dao.impl.UserDaoImpl;
+import com.example.semester_work1.dao.impl.*;
 import com.example.semester_work1.services.AuthService;
+import com.example.semester_work1.services.FileService;
 import com.example.semester_work1.services.PasswordHashService;
 import com.example.semester_work1.services.RegistrationService;
 
@@ -25,5 +23,10 @@ public class InitContextListener implements ServletContextListener {
         sce.getServletContext().setAttribute("placeDao", new PlaceDaoImpl());
         sce.getServletContext().setAttribute("reviewDao", new ReviewDaoImpl());
         sce.getServletContext().setAttribute("commentDao", new CommentToReviewDaoImpl());
+        sce.getServletContext().setAttribute("imageDao", new ImageDaoImpl());
+        ProfilePhotoDaoImpl ppDao = new ProfilePhotoDaoImpl();
+        sce.getServletContext().setAttribute("ppDao", ppDao);
+        sce.getServletContext().setAttribute("fileUploadService", new FileService(ppDao));
+        sce.getServletContext().setAttribute("fpDao", new FavouritePlaceDaoImpl());
     }
 }

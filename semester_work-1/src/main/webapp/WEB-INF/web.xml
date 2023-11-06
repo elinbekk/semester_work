@@ -11,7 +11,7 @@
         <servlet-name>registration</servlet-name>
         <url-pattern>/registration</url-pattern>
     </servlet-mapping>
-    
+
     <servlet>
         <servlet-name>auth</servlet-name>
         <servlet-class>com.example.semester_work1.servlets.AuthorizationServlet</servlet-class>
@@ -37,6 +37,24 @@
     <servlet-mapping>
         <servlet-name>place</servlet-name>
         <url-pattern>/places/detail</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ajax_search</servlet-name>
+        <servlet-class>com.example.semester_work1.servlets.AjaxSearch</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ajax_search</servlet-name>
+        <url-pattern>/places/dosearch</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>search_place</servlet-name>
+        <servlet-class>com.example.semester_work1.servlets.PlaceSearchServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>search_place</servlet-name>
+        <url-pattern>/places/search</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -67,6 +85,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>favourite</servlet-name>
+        <servlet-class>com.example.semester_work1.servlets.FavouriteListServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>favourite</servlet-name>
+        <url-pattern>/favourite</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>profile</servlet-name>
         <servlet-class>com.example.semester_work1.servlets.UserProfileServlet</servlet-class>
     </servlet>
@@ -74,7 +101,7 @@
         <servlet-name>profile</servlet-name>
         <url-pattern>/profile</url-pattern>
     </servlet-mapping>
-    
+
     <servlet>
         <servlet-name>signout</servlet-name>
         <servlet-class>com.example.semester_work1.servlets.SignOutServlet</servlet-class>
@@ -93,6 +120,15 @@
         <url-pattern>/profile/edit</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>about_us</servlet-name>
+        <servlet-class>com.example.semester_work1.servlets.AboutUsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>about_us</servlet-name>
+        <url-pattern>/about_us</url-pattern>
+    </servlet-mapping>
+
     <filter>
         <filter-name>authFilter</filter-name>
         <filter-class>com.example.semester_work1.filters.AuthFilter</filter-class>
@@ -100,7 +136,8 @@
     <filter-mapping>
         <filter-name>authFilter</filter-name>
         <url-pattern>/places/*</url-pattern>
-<!--        <url-pattern>/*</url-pattern>-->
+        <url-pattern>/profile/*</url-pattern>
+        <url-pattern>/about_us</url-pattern>
     </filter-mapping>
-    
+
 </web-app>

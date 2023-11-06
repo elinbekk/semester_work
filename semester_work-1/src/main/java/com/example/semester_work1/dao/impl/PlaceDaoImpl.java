@@ -100,16 +100,16 @@ public class PlaceDaoImpl implements PlaceDao {
 
     }
 
-    public List<Place> findByLikeQuery(String query){
+    public List<Place> getPlaceLikeByQuery(String place){
         try {
             PreparedStatement statement = JDBCConnection.getConn().prepareStatement(
                     "select * from places where place_title like ?"
             );
-            statement.setString(1, "%" + query + "%");
+            statement.setString(1, "%" + place + "%");
             ResultSet rs = statement.executeQuery();
             List<Place> places = new ArrayList<>();
             while (rs.next()) {
-                Place place = new Place(
+                Place p = new Place(
                         rs.getString(1),
                         rs.getString(2),
                         rs.getString(3),
@@ -119,7 +119,7 @@ public class PlaceDaoImpl implements PlaceDao {
                         rs.getDouble(7),
                         rs.getString(8)
                 );
-                places.add(place);
+                places.add(p);
             }
             return places;
         } catch (SQLException e) {
