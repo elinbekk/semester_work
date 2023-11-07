@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -52,15 +51,17 @@ public class AddReviewServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Review review;
+        request.setCharacterEncoding("UTF-8");
         String text = request.getParameter("review-text");
         int assessment = Integer.parseInt(request.getParameter("assessment"));
         User author = ((User) request.getSession().getAttribute("user"));
         String reviewDate = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
         int placeId = Integer.parseInt(request.getParameter("placeId"));
         if (text != null && request.getParameter("assessment") != null) {
-            review = new Review(1, author.getUserId(), text, assessment, reviewDate, placeId);
+            review = new Review(1, author.getUserId(), text, assessment, reviewDate, placeId, author.getName() + " " + author.getLastName());
             try {
                 reviewDao.save(review);
+                Helpers.redirect(response, request, "/places/detail?placeId=" + placeId);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }

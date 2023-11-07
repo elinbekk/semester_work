@@ -8,6 +8,6 @@ public interface Dao<T, K> {
     void save(T item) throws SQLException;
     List<T> getAll();
     Optional<T> getById(K id);
-    void delete(K id);
+    void delete(K id) throws SQLException;
     void update(T item);
 }

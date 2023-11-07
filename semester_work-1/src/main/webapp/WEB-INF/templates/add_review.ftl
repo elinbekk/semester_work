@@ -15,10 +15,6 @@
     <p class="place-category">${place.getCategory()}</p>
     <p class="place-description">${place.getDescription()}</p>
     <p class="place-price">${place.getPrice()}</p>
-    <div class="place-rating">
-        <span class="rating-stars"></span>
-        <span class="rating-value">${place.getRating()}</span>
-    </div>
 </div>
 <form action="list">
     <input class="back-button" type="submit" value="Назад">
@@ -27,7 +23,7 @@
     <form class="review-form" method="post">
         <label for="review-text">Отзыв:</label>
         <textarea id="review-text" required name="review-text"></textarea>
-        <span class="message">Максимальное количество символов - 20. Сейчас введено: </span>
+        <span class="message">Максимальное количество символов - 200. Сейчас введено: </span>
         <span id="counter">0</span>
         <div>
             <input type="radio" id="choice1" name="assessment" value="1"/>

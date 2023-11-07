@@ -55,17 +55,38 @@
     <h3>Отзывы</h3>
     <#list reviews as review>
         <#if review??>
-            <a href="detail/rc">
-                <div class="review-card">
-                    <p class="review-text">${review.text}</p>
-                    <p class="review-author">${review.authorId}</p>
-                    <p class="review-assessment">${review.assessment}</p>
-                    <p class="review-date">${review.date}</p>
+            <div class="review-card">
+                <p class="review-text">${review.text}</p>
+                <p class="review-author">${review.authorFullName}</p>
+                <p class="review-assessment">Оценка: ${review.assessment}</p>
+                <p class="review-date">${review.date}</p>
+            </div>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Посмотреть комментарии
+            </button>
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Комментарии</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Закрыть"></button>
+                        </div>
+                        <div class="modal-body">
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Добавить комментарий</button>
+                        </div>
+                    </div>
                 </div>
-            </a>
+            </div>
         </#if>
     </#list>
 </div>
+
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
@@ -77,7 +98,24 @@
     <input class="review-button" type="submit" value="Оставить отзыв">
 </form>
 <script>
+    $(".button-like").on('click', function (event) {
+        let placeId = $(this).val();
+        console.log(placeId)
+        $(".button-like").toggleClass("liked");
+        setTimeout(() => {
+            $(event.target).removeClass('liked')
+        }, 1000)
 
+        $.ajax({
+            type: "POST",
+            url: "detail",
+            data: {"placeId": placeId},
+            success: function (result) {
+                console.log(result);
+            },
+            dataType: "text/plain"
+        });
+    });
 </script>
 </body>
 </html>

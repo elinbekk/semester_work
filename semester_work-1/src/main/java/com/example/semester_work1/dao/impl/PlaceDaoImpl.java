@@ -47,22 +47,6 @@ public class PlaceDaoImpl implements PlaceDao {
     }
 
     @Override
-    public FavouritePlace saveFp(FavouritePlace item) {
-        return null;
-    }
-
-    @Override
-    public boolean isFavourite(FavouritePlace fp) {
-        return false;
-    }
-
-
-    @Override
-    public List<FavouritePlace> getAllFavouritePlaces() {
-        return null;
-    }
-
-    @Override
     public Optional<Place> getById(String id) {
         try {
             PreparedStatement statement = JDBCConnection.getConn().prepareStatement(

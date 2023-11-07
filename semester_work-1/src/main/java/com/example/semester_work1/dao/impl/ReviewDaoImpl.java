@@ -2,6 +2,7 @@ package com.example.semester_work1.dao.impl;
 
 import com.example.semester_work1.dao.ReviewDao;
 import com.example.semester_work1.models.Review;
+import com.example.semester_work1.models.User;
 import com.example.semester_work1.utils.JDBCConnection;
 
 import java.sql.PreparedStatement;
@@ -13,15 +14,17 @@ import java.util.Optional;
 
 public class ReviewDaoImpl implements ReviewDao {
 
+
     @Override
     public void save(Review item) throws SQLException {
-        PreparedStatement statement = JDBCConnection.getConn().prepareStatement("insert into reviews(review_id, author_id, review_text, assessment, review_date, place_id) values (?, ?, ?, ?, ?, ?)");
+        PreparedStatement statement = JDBCConnection.getConn().prepareStatement("insert into reviews(review_id, author_id, review_text, assessment, review_date, place_id, author_fullname) values (?, ?, ?, ?, ?, ?, ?)");
         statement.setInt(1, item.getReviewId());
         statement.setString(2, item.getAuthorId());
         statement.setString(3, item.getText());
         statement.setInt(4, item.getAssessment());
         statement.setString(5, item.getDate());
         statement.setInt(6, item.getPlaceId());
+        statement.setString(7, item.getAuthorFullName());
         statement.executeUpdate();
     }
 
@@ -40,7 +43,9 @@ public class ReviewDaoImpl implements ReviewDao {
                         rs.getString(3),
                         rs.getInt(4),
                         rs.getString(5),
-                        rs.getInt(6)
+                        rs.getInt(6),
+                        rs.getString(7)
+
                 );
                 reviews.add(review);
             }
@@ -80,7 +85,8 @@ public class ReviewDaoImpl implements ReviewDao {
                         rs.getString(3),
                         rs.getInt(4),
                         rs.getString(5),
-                        rs.getInt(6)
+                        rs.getInt(6),
+                        rs.getString(7)
                 );
                 reviews.add(review);
             }
