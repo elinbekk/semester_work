@@ -79,7 +79,7 @@
                         <div class="modal-body">
                            <#if review.commentsList??>
                                 <#list review.commentsList as comment>
-                                    <div class="comment-card">
+                                    <div class="comment-card" id="comment-card">
                                         <p class="comment-text">${comment.getText()}</p>
                                         <span class="comment-author">${comment.getAuthorFullname()}, </span>
                                         <span class="comment-date">${comment.getDate()}</span>
@@ -137,16 +137,36 @@
 
     $(".btn-primary").on('click', function () {
         let text = $('#comment-text-text').val();
-        console.log(text);
         let reviewId = $(this).val();
-        console.log(reviewId)
         $.ajax({
-            type: "POST",
+            type:"POST",
             url: "add-comment",
             data: {"comment-text": text, "reviewId": reviewId},
-            success: function (response){
-                $(".comment-card").ht
+            success: function (){
+                console.log("success")
+            },
+            error: function (){
 
+            }
+
+        })
+    })
+
+    $(".btn-primary").on('click', function () {
+        let text = $('#comment-text-text').val();
+        let reviewId = $(this).val();
+        $.ajax({
+            url: "add-comment",
+            dataType: "json",
+            data: {"comment-text": text, "reviewId": reviewId},
+            success: function (response){
+                let newComment = '<div class="comment-card" id="comment-card">' +
+                    '<p class="comment-text">' + text + '</p>' +
+                    '<span class="comment-author">' + response.authorFullname + ', </span>' +
+                    '<span class="comment-date">' + response.date + '</span>' +
+                    '</div>';
+                $(".modal-body").append(newComment);
+                $('#comment-text-text').val('');
             },
             error: function (){
 

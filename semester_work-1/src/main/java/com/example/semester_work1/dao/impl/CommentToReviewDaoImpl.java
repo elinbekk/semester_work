@@ -2,6 +2,7 @@ package com.example.semester_work1.dao.impl;
 
 import com.example.semester_work1.dao.CommentToReviewDao;
 import com.example.semester_work1.models.CommentToReview;
+import com.example.semester_work1.models.User;
 import com.example.semester_work1.utils.JDBCConnection;
 
 import java.sql.PreparedStatement;
@@ -31,8 +32,30 @@ public class CommentToReviewDaoImpl implements CommentToReviewDao {
 
     @Override
     public Optional<CommentToReview> getById(Integer id) {
-        return Optional.empty();
+        try{
+            PreparedStatement statement = JDBCConnection.getConn().prepareStatement(
+                    "select * from comments where comment_id = ?"
+            );
+            statement.setInt(1, id);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                CommentToReview user = new CommentToReview(
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6)
+                );
+                return Optional.of(user);
+            } else {
+                return Optional.empty();
+            }
+        } catch(SQLException e){
+            return Optional.empty();
+        }
     }
+
 
     @Override
     public void delete(Integer id) {
@@ -43,14 +66,15 @@ public class CommentToReviewDaoImpl implements CommentToReviewDao {
     public void update(CommentToReview item) {
 
     }
-    public List<CommentToReview> getCommentsByReviewId(Integer reviewId){
+
+    public List<CommentToReview> getCommentsByReviewId(Integer reviewId) {
         try {
             PreparedStatement statement = JDBCConnection.getConn().prepareStatement(
                     "select * from comments where review_id=?"
             );
             statement.setInt(1, reviewId);
             ResultSet rs = statement.executeQuery();
-            List<CommentToReview> comments= new ArrayList<>();
+            List<CommentToReview> comments = new ArrayList<>();
             while (rs.next()) {
                 CommentToReview comment = new CommentToReview(
                         rs.getInt(1),
