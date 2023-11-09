@@ -1,16 +1,18 @@
 package com.example.semester_work1.models;
 
+import java.util.List;
+
 public class Review {
     private int reviewId;
-    private String authorId;
+    private Integer authorId;
     private String text;
     private int assessment;
     private String date;
     private int placeId;
     private String authorFullName;
+    private List<CommentToReview> commentsList;
 
-
-    public Review(int reviewId, String authorId, String text, int assessment, String date, int idOfPlace, String fullName) {
+    public Review(int reviewId, Integer authorId, String text, int assessment, String date, int idOfPlace, String fullName) {
         this.reviewId = reviewId;
         this.authorId = authorId;
         this.text = text;
@@ -20,11 +22,22 @@ public class Review {
         this.authorFullName = fullName;
     }
 
+    public Review(int reviewId, Integer authorId, String text, int assessment, String date, int placeId, String authorFullName, List<CommentToReview> commentsList) {
+        this.reviewId = reviewId;
+        this.authorId = authorId;
+        this.text = text;
+        this.assessment = assessment;
+        this.date = date;
+        this.placeId = placeId;
+        this.authorFullName = authorFullName;
+        this.commentsList = commentsList;
+    }
+
     public int getReviewId() {
         return reviewId;
     }
 
-    public String getAuthorId() {
+    public Integer getAuthorId() {
         return authorId;
     }
 
@@ -51,7 +64,7 @@ public class Review {
         this.reviewId = reviewId;
     }
 
-    public void setAuthorId(String authorId) {
+    public void setAuthorId(Integer authorId) {
         this.authorId = authorId;
     }
 
@@ -69,5 +82,13 @@ public class Review {
 
     public void setIdOfPlace(int idOfPlace) {
         this.placeId = idOfPlace;
+    }
+
+    public void setCommentsList(List<CommentToReview> commentsList) {
+        this.commentsList = commentsList;
+    }
+
+    public List<CommentToReview> getCommentsList() {
+        return commentsList;
     }
 }

@@ -14,7 +14,7 @@ public class ProfilePhotoDaoImpl implements ProfilePhotoDao {
     @Override
     public void save(ProfilePhoto item) throws SQLException {
         PreparedStatement statement = JDBCConnection.getConn().prepareStatement("insert into profile_photo(user_id, original_name, storage_name, size, type) values (?, ?, ?, ?, ?)");
-        statement.setString(1, item.getUserId());
+        statement.setInt(1, item.getUserId());
         statement.setString(2, item.getOriginalFileName());
         statement.setString(3, item.getStorageFileName());
         statement.setLong(4, item.getSize());
@@ -41,22 +41,22 @@ public class ProfilePhotoDaoImpl implements ProfilePhotoDao {
     public void update(ProfilePhoto item) {
 
     }
-    public Optional<ProfilePhoto> getPhotoByUserId(String userId) throws SQLException {
+    public ProfilePhoto getPhotoByUserId(Integer userId) throws SQLException {
         PreparedStatement statement = JDBCConnection.getConn().prepareStatement("select * from profile_photo where user_id=?");
-        statement.setString(1, userId);
+        statement.setInt(1, userId);
         ResultSet rs = statement.executeQuery();
         if(rs.next()){
             ProfilePhoto pp = new ProfilePhoto(
-                    rs.getString(1),
+                    rs.getInt(1),
                     rs.getString(2),
                     rs.getString(3),
                     rs.getLong(4),
                     rs.getString(5)
             );
-            return Optional.of(pp);
+            return pp;
         }
         else{
-            return Optional.empty();
+            return null;
         }
     }
 }

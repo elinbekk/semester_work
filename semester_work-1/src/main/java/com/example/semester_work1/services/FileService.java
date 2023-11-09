@@ -18,7 +18,7 @@ public class FileService {
         this.profilePhotoDao = profilePhotoDao;
     }
 
-    public void upload(String userId, String filename, Long size, String contentType, InputStream fileInputStream) throws IOException {
+    public void upload(Integer userId, String filename, Long size, String contentType, InputStream fileInputStream) throws IOException {
         ProfilePhoto photo = new ProfilePhoto(
                 userId,
                 filename,

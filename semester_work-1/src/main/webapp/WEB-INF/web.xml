@@ -76,15 +76,6 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>comments</servlet-name>
-        <servlet-class>com.example.semester_work1.servlets.ReviewDetailServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>comments</servlet-name>
-        <url-pattern>/places/review/comments</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
         <servlet-name>favourite</servlet-name>
         <servlet-class>com.example.semester_work1.servlets.FavouriteListServlet</servlet-class>
     </servlet>

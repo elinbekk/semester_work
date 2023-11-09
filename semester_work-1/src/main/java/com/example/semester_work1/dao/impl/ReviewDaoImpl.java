@@ -13,13 +13,11 @@ import java.util.List;
 import java.util.Optional;
 
 public class ReviewDaoImpl implements ReviewDao {
-
-
     @Override
     public void save(Review item) throws SQLException {
         PreparedStatement statement = JDBCConnection.getConn().prepareStatement("insert into reviews(review_id, author_id, review_text, assessment, review_date, place_id, author_fullname) values (?, ?, ?, ?, ?, ?, ?)");
         statement.setInt(1, item.getReviewId());
-        statement.setString(2, item.getAuthorId());
+        statement.setInt(2, item.getAuthorId());
         statement.setString(3, item.getText());
         statement.setInt(4, item.getAssessment());
         statement.setString(5, item.getDate());
@@ -39,7 +37,7 @@ public class ReviewDaoImpl implements ReviewDao {
             while (rs.next()) {
                 Review review = new Review(
                         rs.getInt(1),
-                        rs.getString(2),
+                        rs.getInt(2),
                         rs.getString(3),
                         rs.getInt(4),
                         rs.getString(5),
@@ -81,7 +79,7 @@ public class ReviewDaoImpl implements ReviewDao {
             while (rs.next()) {
                 Review review = new Review(
                         rs.getInt(1),
-                        rs.getString(2),
+                        rs.getInt(2),
                         rs.getString(3),
                         rs.getInt(4),
                         rs.getString(5),

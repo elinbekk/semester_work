@@ -17,7 +17,7 @@ public class RegistrationService {
     }
 
     public void register(User user) throws SQLException {
-        String userID = UUID.randomUUID().toString();
+        Integer userID = (int) Math.random();
         user.setUserId(userID);
         try {
             user.setPassword(phs.hash(user.getPassword()));

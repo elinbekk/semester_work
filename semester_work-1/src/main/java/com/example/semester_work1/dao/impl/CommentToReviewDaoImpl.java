@@ -14,12 +14,13 @@ import java.util.Optional;
 public class CommentToReviewDaoImpl implements CommentToReviewDao {
     @Override
     public void save(CommentToReview item) throws SQLException {
-        PreparedStatement statement = JDBCConnection.getConn().prepareStatement("insert into reviews(comment_id, review_id, author_id, comment_text, comment_date) values (?, ?, ?, ?, ?, ?)");
-        statement.setString(1, item.getCommentId());
-        statement.setString(2, item.getReviewId());
-        statement.setString(3, item.getAuthorId());
+        PreparedStatement statement = JDBCConnection.getConn().prepareStatement("insert into comments(comment_id, review_id, author_id, comment_text, comment_date, author_fullname) values (?, ?, ?, ?, ?, ?)");
+        statement.setInt(1, item.getCommentId());
+        statement.setInt(2, item.getReviewId());
+        statement.setInt(3, item.getAuthorId());
         statement.setString(4, item.getText());
         statement.setString(5, item.getDate());
+        statement.setString(6, item.getAuthorFullname());
         statement.executeUpdate();
     }
 
@@ -42,22 +43,22 @@ public class CommentToReviewDaoImpl implements CommentToReviewDao {
     public void update(CommentToReview item) {
 
     }
-    public List<CommentToReview> getCommentsByReviewId(String reviewId){
+    public List<CommentToReview> getCommentsByReviewId(Integer reviewId){
         try {
             PreparedStatement statement = JDBCConnection.getConn().prepareStatement(
-                    "select * from reviews where review_id=?"
+                    "select * from comments where review_id=?"
             );
-            statement.setString(1, reviewId);
+            statement.setInt(1, reviewId);
             ResultSet rs = statement.executeQuery();
             List<CommentToReview> comments= new ArrayList<>();
             while (rs.next()) {
                 CommentToReview comment = new CommentToReview(
-                        rs.getString(1),
-                        rs.getString(2),
-                        rs.getString(3),
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getInt(3),
                         rs.getString(4),
-                        rs.getString(5)
-                );
+                        rs.getString(5),
+                        rs.getString(6));
                 comments.add(comment);
             }
             return comments;

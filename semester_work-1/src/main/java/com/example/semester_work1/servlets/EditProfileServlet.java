@@ -36,10 +36,10 @@ public class EditProfileServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        User user = (User) request.getSession().getAttribute("user");
+        User user = (User) request.getSession(false).getAttribute("user");
         ProfilePhoto photo;
         try {
-            photo = profilePhotoDao.getPhotoByUserId(user.getUserId()).get();
+            photo = profilePhotoDao.getPhotoByUserId(user.getUserId());
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -60,7 +60,7 @@ public class EditProfileServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Part avatar = request.getPart("avatar");
         User user = (User) request.getSession().getAttribute("user");
-        fus.upload(user.getUserId(), avatar.getSubmittedFileName(), avatar.getSize(),avatar.getContentType() ,avatar.getInputStream());
+        fus.upload(user.getUserId(), avatar.getSubmittedFileName(), avatar.getSize(), avatar.getContentType(), avatar.getInputStream());
     }
 
 }

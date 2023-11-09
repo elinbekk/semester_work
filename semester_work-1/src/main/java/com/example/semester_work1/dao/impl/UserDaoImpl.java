@@ -14,7 +14,7 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void save(User item) throws SQLException {
         PreparedStatement statement = JDBCConnection.getConn().prepareStatement("insert into users(user_id, user_email, user_name, user_lastname, user_password) values (?, ?, ?, ?, ?)");
-        statement.setString(1, item.getUserId());
+        statement.setInt(1, item.getUserId());
         statement.setString(2, item.getName());
         statement.setString(3, item.getLastName());
         statement.setString(4, item.getEmail());
@@ -36,7 +36,7 @@ public class UserDaoImpl implements UserDao {
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
                 User user = new User(
-                        rs.getString(1),
+                        rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
                         rs.getString(4),

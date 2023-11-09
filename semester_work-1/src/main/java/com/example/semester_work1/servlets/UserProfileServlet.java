@@ -29,15 +29,15 @@ public class UserProfileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = (User) request.getSession(false).getAttribute("user");
-        ProfilePhoto photo;
-        try {
-            photo = profilePhotoDao.getPhotoByUserId(user.getUserId()).get();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
         Template tmpl = FreemarkerConfigSingleton.getCfg().getTemplate("profile.ftl");
         response.setContentType("text/html");
         response.setCharacterEncoding("UTF-8");
+        ProfilePhoto photo;
+        try {
+            photo = profilePhotoDao.getPhotoByUserId(user.getUserId());
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         Map<String, Object> root = new HashMap<>();
         root.put("user", user);
         root.put("photo", photo);

@@ -2,10 +2,10 @@ package com.example.semester_work1.models;
 
 public class FavouritePlace {
     private Integer id;
-    private String userId;
+    private Integer userId;
     private int placeId;
 
-    public FavouritePlace(Integer id, String userId, int placeId) {
+    public FavouritePlace(Integer id, Integer userId, int placeId) {
         this.id = id;
         this.userId = userId;
         this.placeId = placeId;
@@ -19,11 +19,11 @@ public class FavouritePlace {
         this.id = id;
     }
 
-    public String getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 

@@ -5,6 +5,8 @@
     <title>${place.getTitle()}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script type="application/javascript"
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 </head>
 <body>
 <#include "nav.ftl"/>
@@ -31,6 +33,7 @@
                             <img src="${image.src}" class="d-block w-100" alt="${image.description}">
                         </div>
                     </#list>
+                    <#else><span>Фотографий пока нет((</span>
                 </#if>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
@@ -61,23 +64,41 @@
                 <p class="review-assessment">Оценка: ${review.assessment}</p>
                 <p class="review-date">${review.date}</p>
             </div>
-            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#commentModal">
                 Посмотреть комментарии
             </button>
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            <div class="modal fade" id="commentModal" tabindex="-1" aria-labelledby="commentModalLabel"
                  aria-hidden="true">
                 <div class="modal-dialog modal-dialog-scrollable">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Комментарии</h1>
+                            <h1 class="modal-title fs-5" id="commentModalLabel">Комментарии</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                     aria-label="Закрыть"></button>
                         </div>
                         <div class="modal-body">
-
+                           <#if review.commentsList??>
+                                <#list review.commentsList as comment>
+                                    <div class="comment-card">
+                                        <p class="comment-text">${comment.getText()}</p>
+                                        <span class="comment-author">${comment.getAuthorFullname()}, </span>
+                                        <span class="comment-date">${comment.getDate()}</span>
+                                    </div>
+                                </#list>
+                                <#else>
+                                <span>Пока комментариев нет(</span>
+                            </#if>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Добавить комментарий</button>
+                            <div class="add-comment-block" style="">
+                                <form class="comment-form" method="post">
+                                    <label for="comment-text"></label>
+                                    <textarea id="comment-text-text" required name="comment-text"></textarea>
+                                </form>
+                            </div>
+                            <button type="button" class="btn btn-primary" data-bs-target=""
+                                    value="${review.reviewId}">Добавить комментарий
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -86,10 +107,6 @@
     </#list>
 </div>
 
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
 <form action="list">
     <input class="back-button" type="submit" value="Назад">
 </form>
@@ -101,10 +118,11 @@
     $(".button-like").on('click', function (event) {
         let placeId = $(this).val();
         console.log(placeId)
-        $(".button-like").toggleClass("liked");
-        setTimeout(() => {
-            $(event.target).removeClass('liked')
-        }, 1000)
+
+        /* $(".button-like").toggleClass("liked");
+         setTimeout(() => {
+             $(event.target).removeClass('liked')
+         }, 1000)*/
 
         $.ajax({
             type: "POST",
@@ -116,6 +134,26 @@
             dataType: "text/plain"
         });
     });
+
+    $(".btn-primary").on('click', function () {
+        let text = $('#comment-text-text').val();
+        console.log(text);
+        let reviewId = $(this).val();
+        console.log(reviewId)
+        $.ajax({
+            type: "POST",
+            url: "add-comment",
+            data: {"comment-text": text, "reviewId": reviewId},
+            success: function (response){
+                $(".comment-card").ht
+
+            },
+            error: function (){
+
+            }
+
+        })
+    })
 </script>
 </body>
 </html>

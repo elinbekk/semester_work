@@ -1,7 +1,9 @@
 package com.example.semester_work1.servlets;
 
+import com.example.semester_work1.dao.impl.CommentToReviewDaoImpl;
 import com.example.semester_work1.dao.impl.ImageDaoImpl;
 import com.example.semester_work1.dao.impl.ReviewDaoImpl;
+import com.example.semester_work1.models.CommentToReview;
 import com.example.semester_work1.models.Image;
 import com.example.semester_work1.models.Review;
 import com.example.semester_work1.utils.FreemarkerConfigSingleton;
@@ -25,10 +27,13 @@ public class PlaceDetailServlet extends HttpServlet {
     private PlaceDaoImpl placeDao;
     private ReviewDaoImpl reviewDao;
     private ImageDaoImpl imageDao;
+    private CommentToReviewDaoImpl commentDao;
+
     @Override
     public void init() {
         placeDao = (PlaceDaoImpl) getServletContext().getAttribute("placeDao");
         reviewDao = (ReviewDaoImpl) getServletContext().getAttribute("reviewDao");
+        commentDao = (CommentToReviewDaoImpl) getServletContext().getAttribute("commentDao");
         imageDao = (ImageDaoImpl) getServletContext().getAttribute("imageDao");
         FreemarkerConfigSingleton.setServletContext(this.getServletContext());
     }
@@ -37,13 +42,18 @@ public class PlaceDetailServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Template tmpl = FreemarkerConfigSingleton.getCfg().getTemplate("place_detail.ftl");
         String id = request.getParameter("placeId");
-        Place place  = placeDao.getById(id).get();
+        Place place = placeDao.getById(id).get();
         try {
             place.setRating(reviewDao.calculateRating(Integer.valueOf(place.getPlaceId())));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         List<Review> reviewList = reviewDao.getReviewsByPlaceId(Integer.valueOf(id));
+
+        for (Review review : reviewList) {
+            List<CommentToReview> commentsList = commentDao.getCommentsByReviewId(review.getReviewId());
+            review.setCommentsList(commentsList);
+        }
         List<Image> imageList = imageDao.getImagesByPlaceId(Integer.valueOf(id));
         HashMap<String, Object> root = new HashMap<>();
         root.put("place", place);
@@ -58,5 +68,4 @@ public class PlaceDetailServlet extends HttpServlet {
             throw new RuntimeException(e);
         }
     }
-
 }

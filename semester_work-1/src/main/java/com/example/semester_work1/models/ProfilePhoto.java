@@ -1,13 +1,13 @@
 package com.example.semester_work1.models;
 
 public class ProfilePhoto {
-    private String userId;
+    private Integer userId;
     private String originalFileName;
     private String storageFileName;
     private Long size;
     private String type;
 
-    public ProfilePhoto(String userId, String originalFileName, String storageFileName, Long size, String type) {
+    public ProfilePhoto(Integer userId, String originalFileName, String storageFileName, Long size, String type) {
         this.userId = userId;
         this.originalFileName = originalFileName;
         this.storageFileName = storageFileName;
@@ -15,11 +15,11 @@ public class ProfilePhoto {
         this.type = type;
     }
 
-    public String getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 

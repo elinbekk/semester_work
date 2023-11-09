@@ -47,7 +47,7 @@
                 return;
             }
 
-            if (!isValidLogin(login)) {
+            if (!isValidLogin(email.value)) {
                 alert('Неверный формат электронной почты');
             }
 

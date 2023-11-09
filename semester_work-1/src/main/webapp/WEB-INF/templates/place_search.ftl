@@ -39,7 +39,7 @@
             success: function (response) {
                 if (response.objects.length > 0) {
                     $("#result-place_card").html("");
-                    for (var i = 0; i < response.objects.length; i++) {
+                    for (let i = 0; i < response.objects.length; i++) {
                         $("#result-place_card").append('<ul><a class="place-name" href="detail?placeId=' + response.objects[i].placeId + '">' + response.objects[i].title + '</a><ul>');
                     }
                 } else {

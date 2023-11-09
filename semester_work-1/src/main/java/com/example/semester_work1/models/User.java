@@ -1,14 +1,14 @@
 package com.example.semester_work1.models;
 
 public class User {
-    private String userId;
+    private Integer userId;
     private String name;
     private String lastName;
     private String email;
     private String password;
     private String photoRef;
 
-    public User(String userId, String name, String lastName, String email, String password) {
+    public User(Integer userId, String name, String lastName, String email, String password) {
         this.userId = userId;
         this.name = name;
         this.lastName = lastName;
@@ -28,7 +28,7 @@ public class User {
         this.password = password;
     }
 
-    public String getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
@@ -52,7 +52,7 @@ public class User {
         return photoRef;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
