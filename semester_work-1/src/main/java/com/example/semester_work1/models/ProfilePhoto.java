@@ -1,13 +1,15 @@
 package com.example.semester_work1.models;
 
+import java.util.UUID;
+
 public class ProfilePhoto {
-    private Integer userId;
+    private UUID userId;
     private String originalFileName;
     private String storageFileName;
     private Long size;
     private String type;
 
-    public ProfilePhoto(Integer userId, String originalFileName, String storageFileName, Long size, String type) {
+    public ProfilePhoto(UUID userId, String originalFileName, String storageFileName, Long size, String type) {
         this.userId = userId;
         this.originalFileName = originalFileName;
         this.storageFileName = storageFileName;
@@ -15,11 +17,11 @@ public class ProfilePhoto {
         this.type = type;
     }
 
-    public Integer getUserId() {
+    public UUID getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(UUID userId) {
         this.userId = userId;
     }
 

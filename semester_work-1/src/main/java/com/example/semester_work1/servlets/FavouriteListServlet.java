@@ -18,6 +18,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 
 public class FavouriteListServlet extends HttpServlet {
@@ -35,10 +36,10 @@ public class FavouriteListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Template tmpl = FreemarkerConfigSingleton.getCfg().getTemplate("favourite.ftl");
         User user = (User) request.getSession(false).getAttribute("user");
-        List<Integer> fpId = fpDao.getUsersAllFavourite(user.getUserId());
+        List<UUID> fpId = fpDao.getUsersAllFavourite(user.getUserId());
         List<Place> places = new ArrayList<>();
         for (int i = 0; i < fpId.size(); i++){
-            Place place = placeDao.getById(String.valueOf(fpId.get(i))).get();
+            Place place = placeDao.getById(fpId.get(i)).get();
             places.add(place);
         }
         HashMap<String, Object> root = new HashMap<>();
@@ -55,7 +56,7 @@ public class FavouriteListServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = (User) request.getSession(false).getAttribute("user");
-        Integer placeId = Integer.valueOf(request.getParameter("placeId"));
+        UUID placeId = UUID.fromString(request.getParameter("placeId"));
         try {
             fpDao.delete(user.getUserId(), placeId);
         } catch (SQLException e) {

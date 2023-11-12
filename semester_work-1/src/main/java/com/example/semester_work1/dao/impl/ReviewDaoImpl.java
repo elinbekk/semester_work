@@ -2,7 +2,6 @@ package com.example.semester_work1.dao.impl;
 
 import com.example.semester_work1.dao.ReviewDao;
 import com.example.semester_work1.models.Review;
-import com.example.semester_work1.models.User;
 import com.example.semester_work1.utils.JDBCConnection;
 
 import java.sql.PreparedStatement;
@@ -11,17 +10,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public class ReviewDaoImpl implements ReviewDao {
     @Override
     public void save(Review item) throws SQLException {
         PreparedStatement statement = JDBCConnection.getConn().prepareStatement("insert into reviews(review_id, author_id, review_text, assessment, review_date, place_id, author_fullname) values (?, ?, ?, ?, ?, ?, ?)");
-        statement.setInt(1, item.getReviewId());
-        statement.setInt(2, item.getAuthorId());
+        statement.setObject(1, item.getReviewId());
+        statement.setObject(2, item.getAuthorId());
         statement.setString(3, item.getText());
         statement.setInt(4, item.getAssessment());
         statement.setString(5, item.getDate());
-        statement.setInt(6, item.getPlaceId());
+        statement.setObject(6, item.getPlaceId());
         statement.setString(7, item.getAuthorFullName());
         statement.executeUpdate();
     }
@@ -36,12 +36,12 @@ public class ReviewDaoImpl implements ReviewDao {
             List<Review> reviews= new ArrayList<>();
             while (rs.next()) {
                 Review review = new Review(
-                        rs.getInt(1),
-                        rs.getInt(2),
+                        (UUID) rs.getObject(1),
+                        (UUID) rs.getObject(2),
                         rs.getString(3),
                         rs.getInt(4),
                         rs.getString(5),
-                        rs.getInt(6),
+                        (UUID) rs.getObject(6),
                         rs.getString(7)
 
                 );
@@ -55,12 +55,12 @@ public class ReviewDaoImpl implements ReviewDao {
     }
 
     @Override
-    public Optional<Review> getById(Integer id) {
+    public Optional<Review> getById(UUID id) {
         return Optional.empty();
     }
 
     @Override
-    public void delete(Integer id) {
+    public void delete(UUID id) {
 
     }
 
@@ -78,12 +78,12 @@ public class ReviewDaoImpl implements ReviewDao {
             List<Review> reviews= new ArrayList<>();
             while (rs.next()) {
                 Review review = new Review(
-                        rs.getInt(1),
-                        rs.getInt(2),
+                        (UUID) rs.getObject(1),
+                        (UUID) rs.getObject(2),
                         rs.getString(3),
                         rs.getInt(4),
                         rs.getString(5),
-                        rs.getInt(6),
+                        (UUID) rs.getObject(6),
                         rs.getString(7)
                 );
                 reviews.add(review);
@@ -94,11 +94,11 @@ public class ReviewDaoImpl implements ReviewDao {
             return null;
         }
     }
-    public double calculateRating(Integer placeId) throws SQLException {
+    public double calculateRating(UUID placeId) throws SQLException {
         PreparedStatement statement = JDBCConnection.getConn().prepareStatement("select sum(assessment) from reviews where place_id=?");
         PreparedStatement statement1 = JDBCConnection.getConn().prepareStatement("select count(assessment) from reviews where place_id=?");
-        statement.setInt(1, placeId);
-        statement1.setInt(1, placeId);
+        statement.setObject(1, placeId);
+        statement1.setObject(1, placeId);
         ResultSet rs = statement.executeQuery();
         ResultSet rs1 = statement1.executeQuery();
         double sum = 0;

@@ -1,7 +1,6 @@
 package com.example.semester_work1.dao.impl;
 
 import com.example.semester_work1.dao.PlaceDao;
-import com.example.semester_work1.models.FavouritePlace;
 import com.example.semester_work1.models.Place;
 import com.example.semester_work1.utils.JDBCConnection;
 
@@ -11,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public class PlaceDaoImpl implements PlaceDao {
     @Override
@@ -28,7 +28,7 @@ public class PlaceDaoImpl implements PlaceDao {
             List<Place> places = new ArrayList<>();
             while (rs.next()) {
                 Place place = new Place(
-                        rs.getString(1),
+                        (UUID) rs.getObject(1),
                         rs.getString(2),
                         rs.getString(3),
                         rs.getString(4),
@@ -47,16 +47,16 @@ public class PlaceDaoImpl implements PlaceDao {
     }
 
     @Override
-    public Optional<Place> getById(String id) {
+    public Optional<Place> getById(UUID id) {
         try {
             PreparedStatement statement = JDBCConnection.getConn().prepareStatement(
                     "select * from places where place_id = ?"
             );
-            statement.setInt(1, Integer.parseInt(id));
+            statement.setObject(1, id);
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
                 Place place = new Place(
-                        rs.getString(1),
+                        (UUID) rs.getObject(1),
                         rs.getString(2),
                         rs.getString(3),
                         rs.getString(4),
@@ -75,7 +75,7 @@ public class PlaceDaoImpl implements PlaceDao {
     }
 
     @Override
-    public void delete(String id) {
+    public void delete(UUID id) {
 
     }
 
@@ -94,7 +94,7 @@ public class PlaceDaoImpl implements PlaceDao {
             List<Place> places = new ArrayList<>();
             while (rs.next()) {
                 Place p = new Place(
-                        rs.getString(1),
+                        (UUID) rs.getObject(1),
                         rs.getString(2),
                         rs.getString(3),
                         rs.getString(4),

@@ -20,6 +20,7 @@ import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 public class PlaceListServlet extends HttpServlet {
     private PlaceDaoImpl placeDao;
@@ -53,10 +54,10 @@ public class PlaceListServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         User user = (User) request.getSession(false).getAttribute("user");
-        String placeId = request.getParameter("placeId");
-        boolean isFav = fpDao.isFavourite(user.getUserId(), Integer.valueOf(placeId));
+        UUID placeId = UUID.fromString(request.getParameter("placeId"));
+        boolean isFav = fpDao.isFavourite(user.getUserId(), placeId);
         if(isFav == false){
-            FavouritePlace fp = new FavouritePlace(1, user.getUserId(), Integer.parseInt(placeId));
+            FavouritePlace fp = new FavouritePlace(UUID.randomUUID(), user.getUserId(),placeId);
             try {
                 fpDao.save(fp);
             } catch (SQLException e) {

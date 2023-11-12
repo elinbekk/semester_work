@@ -1,14 +1,16 @@
 package com.example.semester_work1.models;
 
+import java.util.UUID;
+
 public class CommentToReview {
-    private Integer commentId;
-    private Integer reviewId;
-    private Integer authorId;
+    private UUID commentId;
+    private UUID reviewId;
+    private UUID authorId;
     private String text;
     private String date;
     private String authorFullname;
 
-    public CommentToReview(Integer commentId, Integer reviewId, Integer authorId, String text, String date, String authorFullname) {
+    public CommentToReview(UUID commentId, UUID reviewId, UUID authorId, String text, String date, String authorFullname) {
         this.commentId = commentId;
         this.reviewId = reviewId;
         this.authorId = authorId;
@@ -17,27 +19,35 @@ public class CommentToReview {
         this.authorFullname = authorFullname;
     }
 
-    public Integer getCommentId() {
+    public CommentToReview(UUID reviewId, UUID authorId, String text, String date, String authorFullname) {
+        this.reviewId = reviewId;
+        this.authorId = authorId;
+        this.text = text;
+        this.date = date;
+        this.authorFullname = authorFullname;
+    }
+
+    public UUID getCommentId() {
         return commentId;
     }
 
-    public void setCommentId(Integer commentId) {
+    public void setCommentId(UUID commentId) {
         this.commentId = commentId;
     }
 
-    public Integer getReviewId() {
+    public UUID getReviewId() {
         return reviewId;
     }
 
-    public void setReviewId(Integer reviewId) {
+    public void setReviewId(UUID reviewId) {
         this.reviewId = reviewId;
     }
 
-    public Integer getAuthorId() {
+    public UUID getAuthorId() {
         return authorId;
     }
 
-    public void setAuthorId(Integer authorId) {
+    public void setAuthorId(UUID authorId) {
         this.authorId = authorId;
     }
 

@@ -9,12 +9,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public class ProfilePhotoDaoImpl implements ProfilePhotoDao {
     @Override
     public void save(ProfilePhoto item) throws SQLException {
         PreparedStatement statement = JDBCConnection.getConn().prepareStatement("insert into profile_photo(user_id, original_name, storage_name, size, type) values (?, ?, ?, ?, ?)");
-        statement.setInt(1, item.getUserId());
+        statement.setObject(1, item.getUserId());
         statement.setString(2, item.getOriginalFileName());
         statement.setString(3, item.getStorageFileName());
         statement.setLong(4, item.getSize());
@@ -28,12 +29,12 @@ public class ProfilePhotoDaoImpl implements ProfilePhotoDao {
     }
 
     @Override
-    public Optional<ProfilePhoto> getById(String id) {
+    public Optional<ProfilePhoto> getById(UUID id) {
         return Optional.empty();
     }
 
     @Override
-    public void delete(String id) {
+    public void delete(UUID id) {
 
     }
 
@@ -41,13 +42,13 @@ public class ProfilePhotoDaoImpl implements ProfilePhotoDao {
     public void update(ProfilePhoto item) {
 
     }
-    public ProfilePhoto getPhotoByUserId(Integer userId) throws SQLException {
+    public ProfilePhoto getPhotoByUserId(UUID userId) throws SQLException {
         PreparedStatement statement = JDBCConnection.getConn().prepareStatement("select * from profile_photo where user_id=?");
-        statement.setInt(1, userId);
+        statement.setObject(1, userId);
         ResultSet rs = statement.executeQuery();
         if(rs.next()){
             ProfilePhoto pp = new ProfilePhoto(
-                    rs.getInt(1),
+                    (UUID) rs.getObject(1),
                     rs.getString(2),
                     rs.getString(3),
                     rs.getLong(4),

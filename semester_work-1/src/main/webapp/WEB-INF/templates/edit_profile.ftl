@@ -29,6 +29,25 @@
             <input class="edit-button" type="submit" value="Обновить фото профиля">
         </form>
     </div>
+    <#--<button class="button-delete" value="${place.placeId}">
+        <i class="heart"></i>
+        <span>delete</span>
+    </button>-->
 </div>
+<#--<script>
+    $(".button-delete").on('click', function () {
+        let placeId = $(this).val().toString();
+
+        $.ajax({
+            type: "POST",
+            url: "",
+            data: {"placeId": placeId},
+            success: function (result) {
+                $('#'+placeId).hide(300);
+                console.log(result);
+            }
+        });
+    });
+</script>-->
 </body>
 </html>

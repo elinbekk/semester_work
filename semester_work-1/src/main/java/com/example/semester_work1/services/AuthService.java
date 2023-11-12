@@ -10,22 +10,26 @@ import java.util.Optional;
 
 public class AuthService {
     UserDaoImpl userDao;
-
-    public void signIn(User user, HttpServletRequest request) throws NoSuchAlgorithmException {
-        if (passwordsAreMatch(user)) {
-            request.getSession().setAttribute("user", user);
-        }
-    }
+    PasswordHashService phs;
     public AuthService(UserDaoImpl userDao, PasswordHashService phs) {
         this.userDao = userDao;
+        this.phs = phs;
+    }
+
+    public boolean signIn(User user, String currentInputPassword, HttpServletRequest request) throws NoSuchAlgorithmException {
+        if (passwordsAreMatch(user, currentInputPassword)) {
+            request.getSession().setAttribute("user", user);
+            return true;
+        }else {
+            return false;
+        }
     }
     public boolean isExist(String email) {
         Optional<User> ex = userDao.getUserByEmail(email);
         return ex.isPresent();
     }
-    public boolean passwordsAreMatch(User current) throws NoSuchAlgorithmException {
-        User userByEmail = userDao.getUserByEmail(current.getEmail()).get();
-        String hashedPassword = current.getPassword();
-        return hashedPassword.equals(userByEmail.getPassword());
+    public boolean passwordsAreMatch(User current, String currentInputPassword) throws NoSuchAlgorithmException {
+        String hashedCurrentInputPassword = phs.hash(currentInputPassword);
+        return hashedCurrentInputPassword.equals(current.getPassword());
     }
 }

@@ -22,7 +22,7 @@
             </div>
         </#list>
     <#else>
-        <p class="text">Ничего нет</p>
+        <p class="text">Тут пока ничего нет(</p>
     </#if>
 </div>
 <form action="places/list">
@@ -31,7 +31,6 @@
 <script>
     $(".button-delete").on('click', function () {
         let placeId = $(this).val().toString();
-
         $.ajax({
             type: "POST",
             url: "favourite",

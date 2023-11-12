@@ -12,10 +12,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.HashMap;
 
 public class RegistrationServlet extends HttpServlet {
     private RegistrationService registrationService;
@@ -41,6 +40,10 @@ public class RegistrationServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        Template tmpl = FreemarkerConfigSingleton.getCfg().getTemplate("registration.ftl");
+        response.setContentType("text/html");
+        response.setCharacterEncoding("UTF-8");
+        String message;
         User user;
         request.setCharacterEncoding("UTF-8");
         String email = request.getParameter("email");
@@ -48,13 +51,24 @@ public class RegistrationServlet extends HttpServlet {
         String lastName = request.getParameter("lastName");
         String password = request.getParameter("password");
         if (email != null && name != null && lastName != null && password != null) {
-            user = new User(email, name, lastName, password);
-            try {
-                registrationService.register(user);
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
+            if (!registrationService.isExist(email)){
+                try {
+                    user = new User(email, name, lastName, password);
+                    registrationService.register(user);
+                    Helpers.redirect(response, request, "/auth");
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+            } else {
+                message = "user already exists";
+                HashMap<String, Object> root = new HashMap<>();
+                root.put("message", message);
+                try {
+                    tmpl.process(root, response.getWriter());
+                } catch (TemplateException e) {
+                    throw new RuntimeException(e);
+                }
             }
-            Helpers.redirect(response, request, "/auth");
         }
     }
 }

@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class="container">
-    <form class="form-center-content" method="post">
+    <form class="form-center-content" method="post" action="auth">
         <div class="form-signin-heading">Вход</div>
         <label>
             <input class="form-control" name="email" type="email" placeholder="ваш email" required>
@@ -25,6 +25,9 @@
     <form action="registration">
         <input class="login-button" type="submit" value="Назад на страницу регистрации">
     </form>
+    <#if message??>
+        <div><p>${message}</p></div>
+    </#if>
 </div>
 </body>
 </html>

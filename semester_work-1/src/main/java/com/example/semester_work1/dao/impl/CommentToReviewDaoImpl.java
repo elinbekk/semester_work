@@ -11,14 +11,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public class CommentToReviewDaoImpl implements CommentToReviewDao {
     @Override
     public void save(CommentToReview item) throws SQLException {
         PreparedStatement statement = JDBCConnection.getConn().prepareStatement("insert into comments(comment_id, review_id, author_id, comment_text, comment_date, author_fullname) values (?, ?, ?, ?, ?, ?)");
-        statement.setInt(1, item.getCommentId());
-        statement.setInt(2, item.getReviewId());
-        statement.setInt(3, item.getAuthorId());
+        statement.setObject(1, item.getCommentId());
+        statement.setObject(2, item.getReviewId());
+        statement.setObject(3, item.getAuthorId());
         statement.setString(4, item.getText());
         statement.setString(5, item.getDate());
         statement.setString(6, item.getAuthorFullname());
@@ -40,9 +41,9 @@ public class CommentToReviewDaoImpl implements CommentToReviewDao {
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
                 CommentToReview user = new CommentToReview(
-                        rs.getInt(1),
-                        rs.getInt(2),
-                        rs.getInt(3),
+                        (UUID) rs.getObject(1),
+                        (UUID) rs.getObject(2),
+                        (UUID) rs.getObject(3),
                         rs.getString(4),
                         rs.getString(5),
                         rs.getString(6)
@@ -67,19 +68,19 @@ public class CommentToReviewDaoImpl implements CommentToReviewDao {
 
     }
 
-    public List<CommentToReview> getCommentsByReviewId(Integer reviewId) {
+    public List<CommentToReview> getCommentsByReviewId(UUID reviewId) {
         try {
             PreparedStatement statement = JDBCConnection.getConn().prepareStatement(
                     "select * from comments where review_id=?"
             );
-            statement.setInt(1, reviewId);
+            statement.setObject(1, reviewId);
             ResultSet rs = statement.executeQuery();
             List<CommentToReview> comments = new ArrayList<>();
             while (rs.next()) {
                 CommentToReview comment = new CommentToReview(
-                        rs.getInt(1),
-                        rs.getInt(2),
-                        rs.getInt(3),
+                        (UUID) rs.getObject(1),
+                        (UUID) rs.getObject(2),
+                        (UUID) rs.getObject(3),
                         rs.getString(4),
                         rs.getString(5),
                         rs.getString(6));

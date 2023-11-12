@@ -7,6 +7,7 @@
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script type="application/javascript"
             src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <link href="styles/place_detail.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <#include "nav.ftl"/>
@@ -33,7 +34,7 @@
                             <img src="${image.src}" class="d-block w-100" alt="${image.description}">
                         </div>
                     </#list>
-                    <#else><span>Фотографий пока нет((</span>
+                <#else><span>Фотографий пока нет((</span>
                 </#if>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls"
@@ -77,7 +78,7 @@
                                     aria-label="Закрыть"></button>
                         </div>
                         <div class="modal-body">
-                           <#if review.commentsList??>
+                            <#if review.commentsList??>
                                 <#list review.commentsList as comment>
                                     <div class="comment-card" id="comment-card">
                                         <p class="comment-text">${comment.getText()}</p>
@@ -85,7 +86,7 @@
                                         <span class="comment-date">${comment.getDate()}</span>
                                     </div>
                                 </#list>
-                                <#else>
+                            <#else>
                                 <span>Пока комментариев нет(</span>
                             </#if>
                         </div>
@@ -139,14 +140,13 @@
         let text = $('#comment-text-text').val();
         let reviewId = $(this).val();
         $.ajax({
-            type:"POST",
+            type: "POST",
             url: "add-comment",
             data: {"comment-text": text, "reviewId": reviewId},
-            success: function (){
+            success: function () {
                 console.log("success")
             },
-            error: function (){
-
+            error: function () {
             }
 
         })
@@ -155,11 +155,12 @@
     $(".btn-primary").on('click', function () {
         let text = $('#comment-text-text').val();
         let reviewId = $(this).val();
+        console.log(reviewId);
         $.ajax({
             url: "add-comment",
             dataType: "json",
             data: {"comment-text": text, "reviewId": reviewId},
-            success: function (response){
+            success: function (response) {
                 let newComment = '<div class="comment-card" id="comment-card">' +
                     '<p class="comment-text">' + text + '</p>' +
                     '<span class="comment-author">' + response.authorFullname + ', </span>' +
@@ -168,7 +169,7 @@
                 $(".modal-body").append(newComment);
                 $('#comment-text-text').val('');
             },
-            error: function (){
+            error: function () {
 
             }
 

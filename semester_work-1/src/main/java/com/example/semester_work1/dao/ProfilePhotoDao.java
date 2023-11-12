@@ -5,8 +5,9 @@ import com.example.semester_work1.models.ProfilePhoto;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
-public interface ProfilePhotoDao extends Dao<ProfilePhoto, String>{
+public interface ProfilePhotoDao extends Dao<ProfilePhoto, UUID>{
     @Override
     void save(ProfilePhoto item) throws SQLException;
 
@@ -14,10 +15,10 @@ public interface ProfilePhotoDao extends Dao<ProfilePhoto, String>{
     List<ProfilePhoto> getAll();
 
     @Override
-    Optional<ProfilePhoto> getById(String id);
+    Optional<ProfilePhoto> getById(UUID id);
 
     @Override
-    void delete(String id);
+    void delete(UUID id);
 
     @Override
     void update(ProfilePhoto item);

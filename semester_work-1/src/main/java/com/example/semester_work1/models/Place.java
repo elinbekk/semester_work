@@ -1,7 +1,9 @@
 package com.example.semester_work1.models;
 
+import java.util.UUID;
+
 public class Place {
-    private String placeId;
+    private UUID placeId;
     private String title;
     private String address;
     private String category;
@@ -10,7 +12,7 @@ public class Place {
     private double rating;
     private String image;
 
-    public Place(String placeId, String title, String address, String category, String description, int price, double rating, String image) {
+    public Place(UUID placeId, String title, String address, String category, String description, int price, double rating, String image) {
         this.placeId = placeId;
         this.title = title;
         this.address = address;
@@ -21,7 +23,7 @@ public class Place {
         this.image = image;
     }
 
-    public Place(String placeId, String title) {
+    public Place(UUID placeId, String title) {
         this.placeId = placeId;
         this.title = title;
     }
@@ -30,7 +32,7 @@ public class Place {
         this.title = title;
     }
 
-    public String getPlaceId() {
+    public UUID getPlaceId() {
         return placeId;
     }
 
@@ -65,7 +67,7 @@ public class Place {
         this.image = image;
     }
 
-    public void setPlaceId(String placeId) {
+    public void setPlaceId(UUID placeId) {
         this.placeId = placeId;
     }
 

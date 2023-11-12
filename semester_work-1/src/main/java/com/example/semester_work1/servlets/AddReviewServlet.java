@@ -33,8 +33,7 @@ public class AddReviewServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Template tmpl = FreemarkerConfigSingleton.getCfg().getTemplate("add_review.ftl");
         String id = request.getParameter("placeId");
-        //TODO исправить тип айди
-        Place place  = placeDao.getById(id).get();
+        Place place  = placeDao.getById(UUID.fromString(id)).get();
         List<Review> reviewsList = reviewDao.getReviewsByPlaceId(Integer.valueOf(id));
         HashMap<String, Object> root = new HashMap<>();
         root.put("place", place);
@@ -56,9 +55,9 @@ public class AddReviewServlet extends HttpServlet {
         int assessment = Integer.parseInt(request.getParameter("assessment"));
         User author = ((User) request.getSession().getAttribute("user"));
         String reviewDate = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
-        int placeId = Integer.parseInt(request.getParameter("placeId"));
+        UUID placeId = UUID.fromString(request.getParameter("placeId"));
         if (text != null && request.getParameter("assessment") != null) {
-            review = new Review(1, author.getUserId(), text, assessment, reviewDate, placeId, author.getName() + " " + author.getLastName());
+            review = new Review(UUID.randomUUID(), author.getUserId(), text, assessment, reviewDate, placeId, author.getName() + " " + author.getLastName());
             try {
                 reviewDao.save(review);
                 Helpers.redirect(response, request, "/places/detail?placeId=" + placeId);

@@ -15,6 +15,7 @@ import javax.servlet.http.*;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
 
 public class AuthorizationServlet extends HttpServlet {
     private AuthService authService;
@@ -41,7 +42,11 @@ public class AuthorizationServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Template tmpl = FreemarkerConfigSingleton.getCfg().getTemplate("authorization.ftl");
+        response.setContentType("text/html");
+        response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");
+        String message ="";
         String email = request.getParameter("email");
         String password = request.getParameter("password");
         String remember = request.getParameter("remember");
@@ -52,13 +57,24 @@ public class AuthorizationServlet extends HttpServlet {
                     response.addCookie(new Cookie("user_email", email));
                 }
                 try {
-                    authService.signIn(user, request);
+                    if(authService.signIn(user, password, request)){
+                        Helpers.redirect(response, request, "/places/list");
+                    }else{
+                        message = "Неверный пароль. Пожалуйста, проверьте введенные данные.";
+                    }
                 } catch (NoSuchAlgorithmException e) {
                     throw new RuntimeException(e);
                 }
-                Helpers.redirect(response, request, "/places/list");
+            }else {
+                message = "Пользователя с такой почтой не существует. Пожалуйста, проверьте введенные данные.";
+            }
+            HashMap<String, Object> root = new HashMap<>();
+            root.put("message", message);
+            try {
+                tmpl.process(root, response.getWriter());
+            } catch (TemplateException e) {
+                throw new RuntimeException(e);
             }
         }
-
     }
 }

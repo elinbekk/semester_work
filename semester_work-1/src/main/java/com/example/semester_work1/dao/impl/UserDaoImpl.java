@@ -9,12 +9,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public class UserDaoImpl implements UserDao {
     @Override
     public void save(User item) throws SQLException {
         PreparedStatement statement = JDBCConnection.getConn().prepareStatement("insert into users(user_id, user_email, user_name, user_lastname, user_password) values (?, ?, ?, ?, ?)");
-        statement.setInt(1, item.getUserId());
+        statement.setObject(1, item.getUserId());
         statement.setString(2, item.getName());
         statement.setString(3, item.getLastName());
         statement.setString(4, item.getEmail());
@@ -36,7 +37,7 @@ public class UserDaoImpl implements UserDao {
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
                 User user = new User(
-                        rs.getInt(1),
+                        (UUID) rs.getObject(1),
                         rs.getString(2),
                         rs.getString(3),
                         rs.getString(4),
@@ -51,14 +52,13 @@ public class UserDaoImpl implements UserDao {
         }
     }
 
-
     @Override
-    public Optional<User> getById(String id) {
+    public Optional<User> getById(UUID id) {
         try {
             PreparedStatement statement = JDBCConnection.getConn().prepareStatement(
                     "select * from user where user_id = ?"
             );
-            statement.setString(1, id);
+            statement.setObject(1, id);
             ResultSet rs = statement.executeQuery();
             if (rs.next()) {
                 User user = new User(
@@ -77,7 +77,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public void delete(String id) {
+    public void delete(UUID id) {
 
     }
 

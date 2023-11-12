@@ -1,14 +1,16 @@
 package com.example.semester_work1.models;
 
+import java.util.UUID;
+
 public class User {
-    private Integer userId;
+    private UUID userId;
     private String name;
     private String lastName;
     private String email;
     private String password;
     private String photoRef;
 
-    public User(Integer userId, String name, String lastName, String email, String password) {
+    public User(UUID userId, String name, String lastName, String email, String password) {
         this.userId = userId;
         this.name = name;
         this.lastName = lastName;
@@ -28,7 +30,7 @@ public class User {
         this.password = password;
     }
 
-    public Integer getUserId() {
+    public UUID getUserId() {
         return userId;
     }
 
@@ -52,7 +54,7 @@ public class User {
         return photoRef;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(UUID userId) {
         this.userId = userId;
     }
 

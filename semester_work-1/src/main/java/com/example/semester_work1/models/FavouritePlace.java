@@ -1,37 +1,39 @@
 package com.example.semester_work1.models;
 
-public class FavouritePlace {
-    private Integer id;
-    private Integer userId;
-    private int placeId;
+import java.util.UUID;
 
-    public FavouritePlace(Integer id, Integer userId, int placeId) {
+public class FavouritePlace {
+    private UUID id;
+    private UUID userId;
+    private UUID placeId;
+
+    public FavouritePlace(UUID id, UUID userId, UUID placeId) {
         this.id = id;
         this.userId = userId;
         this.placeId = placeId;
     }
 
-    public int getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 
-    public Integer getUserId() {
+    public UUID getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(UUID userId) {
         this.userId = userId;
     }
 
-    public int getPlaceId() {
+    public UUID getPlaceId() {
         return placeId;
     }
 
-    public void setPlaceId(int placeId) {
+    public void setPlaceId(UUID placeId) {
         this.placeId = placeId;
     }
 }

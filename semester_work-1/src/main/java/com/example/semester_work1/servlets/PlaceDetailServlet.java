@@ -22,6 +22,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public class PlaceDetailServlet extends HttpServlet {
     private PlaceDaoImpl placeDao;
@@ -42,9 +43,9 @@ public class PlaceDetailServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Template tmpl = FreemarkerConfigSingleton.getCfg().getTemplate("place_detail.ftl");
         String id = request.getParameter("placeId");
-        Place place = placeDao.getById(id).get();
+        Place place = placeDao.getById(UUID.fromString(id)).get();
         try {
-            place.setRating(reviewDao.calculateRating(Integer.valueOf(place.getPlaceId())));
+            place.setRating(reviewDao.calculateRating(place.getPlaceId()));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

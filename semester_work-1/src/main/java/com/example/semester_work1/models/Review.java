@@ -1,18 +1,19 @@
 package com.example.semester_work1.models;
 
 import java.util.List;
+import java.util.UUID;
 
 public class Review {
-    private int reviewId;
-    private Integer authorId;
+    private UUID reviewId;
+    private UUID authorId;
     private String text;
     private int assessment;
     private String date;
-    private int placeId;
+    private UUID placeId;
     private String authorFullName;
     private List<CommentToReview> commentsList;
 
-    public Review(int reviewId, Integer authorId, String text, int assessment, String date, int idOfPlace, String fullName) {
+    public Review(UUID reviewId, UUID authorId, String text, int assessment, String date, UUID idOfPlace, String fullName) {
         this.reviewId = reviewId;
         this.authorId = authorId;
         this.text = text;
@@ -22,7 +23,7 @@ public class Review {
         this.authorFullName = fullName;
     }
 
-    public Review(int reviewId, Integer authorId, String text, int assessment, String date, int placeId, String authorFullName, List<CommentToReview> commentsList) {
+    public Review(UUID reviewId, UUID authorId, String text, int assessment, String date, UUID placeId, String authorFullName, List<CommentToReview> commentsList) {
         this.reviewId = reviewId;
         this.authorId = authorId;
         this.text = text;
@@ -33,11 +34,11 @@ public class Review {
         this.commentsList = commentsList;
     }
 
-    public int getReviewId() {
+    public UUID getReviewId() {
         return reviewId;
     }
 
-    public Integer getAuthorId() {
+    public UUID getAuthorId() {
         return authorId;
     }
 
@@ -53,18 +54,18 @@ public class Review {
         return date;
     }
 
-    public int getPlaceId() {
+    public UUID getPlaceId() {
         return placeId;
     }
 
     public String getAuthorFullName() {
         return authorFullName;
     }
-    public void setReviewId(int reviewId) {
+    public void setReviewId(UUID reviewId) {
         this.reviewId = reviewId;
     }
 
-    public void setAuthorId(Integer authorId) {
+    public void setAuthorId(UUID authorId) {
         this.authorId = authorId;
     }
 
@@ -80,7 +81,7 @@ public class Review {
         this.date = date;
     }
 
-    public void setIdOfPlace(int idOfPlace) {
+    public void setPlaceId(UUID idOfPlace) {
         this.placeId = idOfPlace;
     }
 

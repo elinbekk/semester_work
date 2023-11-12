@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public class ImageDaoImpl implements ImageDao {
     @Override
@@ -32,7 +33,7 @@ public class ImageDaoImpl implements ImageDao {
                         rs.getString(2),
                         rs.getString(3),
                         rs.getInt(4),
-                        rs.getInt(5)
+                        (UUID) rs.getObject(5)
                 );
                 images.add(img);
             }
@@ -72,7 +73,7 @@ public class ImageDaoImpl implements ImageDao {
                         rs.getString(2),
                         rs.getString(3),
                         rs.getInt(4),
-                        rs.getInt(5)
+                        (UUID) rs.getObject(5)
                 );
                 imgs.add(img);
             }
