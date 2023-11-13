@@ -49,13 +49,13 @@ public class PlaceDetailServlet extends HttpServlet {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        List<Review> reviewList = reviewDao.getReviewsByPlaceId(Integer.valueOf(id));
+        List<Review> reviewList = reviewDao.getReviewsByPlaceId(UUID.fromString(id));
 
         for (Review review : reviewList) {
             List<CommentToReview> commentsList = commentDao.getCommentsByReviewId(review.getReviewId());
             review.setCommentsList(commentsList);
         }
-        List<Image> imageList = imageDao.getImagesByPlaceId(Integer.valueOf(id));
+        List<Image> imageList = imageDao.getImagesByPlaceId(UUID.fromString(id));
         HashMap<String, Object> root = new HashMap<>();
         root.put("place", place);
         root.put("reviews", reviewList);

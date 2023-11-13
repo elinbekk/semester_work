@@ -25,7 +25,7 @@
         <p class="text">Тут пока ничего нет(</p>
     </#if>
 </div>
-<form action="places/list">
+<form action="places-list">
     <input class="back-button" type="submit" value="Назад к просмотру мест">
 </form>
 <script>

@@ -34,7 +34,7 @@ public class AddReviewServlet extends HttpServlet {
         Template tmpl = FreemarkerConfigSingleton.getCfg().getTemplate("add_review.ftl");
         String id = request.getParameter("placeId");
         Place place  = placeDao.getById(UUID.fromString(id)).get();
-        List<Review> reviewsList = reviewDao.getReviewsByPlaceId(Integer.valueOf(id));
+        List<Review> reviewsList = reviewDao.getReviewsByPlaceId(UUID.fromString(id));
         HashMap<String, Object> root = new HashMap<>();
         root.put("place", place);
         root.put("reviews", reviewsList);

@@ -68,12 +68,12 @@ public class ReviewDaoImpl implements ReviewDao {
     public void update(Review item) {
 
     }
-    public List<Review> getReviewsByPlaceId(Integer placeId){
+    public List<Review> getReviewsByPlaceId(UUID placeId){
         try {
             PreparedStatement statement = JDBCConnection.getConn().prepareStatement(
                     "select * from reviews where place_id=?"
             );
-            statement.setInt(1, placeId);
+            statement.setObject(1, placeId);
             ResultSet rs = statement.executeQuery();
             List<Review> reviews= new ArrayList<>();
             while (rs.next()) {

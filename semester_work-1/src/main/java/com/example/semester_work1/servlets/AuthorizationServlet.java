@@ -58,7 +58,7 @@ public class AuthorizationServlet extends HttpServlet {
                 }
                 try {
                     if(authService.signIn(user, password, request)){
-                        Helpers.redirect(response, request, "/places/list");
+                        Helpers.redirect(response, request, "/places-list");
                     }else{
                         message = "Неверный пароль. Пожалуйста, проверьте введенные данные.";
                     }

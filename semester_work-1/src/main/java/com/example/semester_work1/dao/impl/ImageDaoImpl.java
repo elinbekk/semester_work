@@ -59,12 +59,12 @@ public class ImageDaoImpl implements ImageDao {
 
     }
 
-    public List<Image> getImagesByPlaceId(Integer placeId) {
+    public List<Image> getImagesByPlaceId(UUID placeId) {
         try {
             PreparedStatement statement = JDBCConnection.getConn().prepareStatement(
                     "select * from images where place_id=?"
             );
-            statement.setInt(1, placeId);
+            statement.setObject(1, placeId);
             ResultSet rs = statement.executeQuery();
             List<Image> imgs = new ArrayList<>();
             while (rs.next()) {

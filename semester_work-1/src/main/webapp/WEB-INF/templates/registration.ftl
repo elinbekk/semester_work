@@ -3,16 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Регистрация</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="styles/registration.css" rel="stylesheet" type="text/css">
     <#--    <script type="application/javascript" src="/js/validation.js"></script>-->
 </head>
 <body>
 <div class="form">
-    <div class="form-signin-heading">Регистрация</div>
+    <div class="form-reg-heading">
+        <p class="text">Регистрация</p></div>
     <#if message??>
-        <div><p>${message}</p></div>
+        <div><p class="text">${message}</p></div>
     </#if>
     <form class="form-input" method="post" action="registration">
         <label>
@@ -26,8 +25,7 @@
                    required>
         </label>
         <label>
-            <input class="form__userdata" id="password-form" name="password" type="password" placeholder="ваш пароль"
-                   required>
+            <input class="form__userdata" id="password-form" name="password" type="password" placeholder="ваш пароль" required>
         </label>
         <input class="login-button" type="submit" value="Зарегистрироваться">
     </form>

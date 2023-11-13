@@ -27,7 +27,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>places</servlet-name>
-        <url-pattern>/places/list</url-pattern>
+        <url-pattern>/places-list</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -36,7 +36,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>place</servlet-name>
-        <url-pattern>/places/detail</url-pattern>
+        <url-pattern>/places-detail</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -45,7 +45,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>ajax_search</servlet-name>
-        <url-pattern>/places/dosearch</url-pattern>
+        <url-pattern>/dosearch</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -54,7 +54,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>search_place</servlet-name>
-        <url-pattern>/places/search</url-pattern>
+        <url-pattern>/places-search</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -63,7 +63,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>add_review</servlet-name>
-        <url-pattern>/places/add-review</url-pattern>
+        <url-pattern>/places-add-review</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -72,7 +72,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>add_comment</servlet-name>
-        <url-pattern>/places/add-comment</url-pattern>
+        <url-pattern>/places-add-comment</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -108,7 +108,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>editProfile</servlet-name>
-        <url-pattern>/profile/edit</url-pattern>
+        <url-pattern>/profile-edit</url-pattern>
     </servlet-mapping>
 
     <servlet>

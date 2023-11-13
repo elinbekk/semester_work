@@ -40,7 +40,7 @@
                 if (response.objects.length > 0) {
                     $("#result-place_card").html("");
                     for (let i = 0; i < response.objects.length; i++) {
-                        $("#result-place_card").append('<ul><a class="place-name" href="detail?placeId=' + response.objects[i].placeId + '">' + response.objects[i].title + '</a><ul>');
+                        $("#result-place_card").append('<ul><a class="place-name" href="place-detail?placeId=' + response.objects[i].placeId + '">' + response.objects[i].title + '</a><ul>');
                     }
                 } else {
                     $("#result-place_card").html("Не найдено");

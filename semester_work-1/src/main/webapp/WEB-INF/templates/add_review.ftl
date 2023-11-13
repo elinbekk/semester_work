@@ -16,10 +16,10 @@
     <p class="place-description">${place.getDescription()}</p>
     <p class="place-price">${place.getPrice()}</p>
 </div>
-<form action="list">
+<form action="places-list">
     <input class="back-button" type="submit" value="Назад">
 </form>
-<div class="add-review">
+<div class="places-add-review">
     <form class="review-form" method="post">
         <label for="review-text">Отзыв:</label>
         <textarea id="review-text" required name="review-text"></textarea>
