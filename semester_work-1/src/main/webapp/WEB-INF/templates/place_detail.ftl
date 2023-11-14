@@ -12,21 +12,20 @@
 <body>
 <#include "nav.ftl"/>
 <div class="content">
-    <p class="header">${place.getTitle()}</p>
+    <h1 class="header">${place.getTitle()}</h1>
     <div class="place-page">
         <div class="info-block">
-            <h2 class="place-name">${place.getTitle()}</h2>
             <p class="place-description">${place.getDescription()}</p>
             <p class="place-address">Адрес: ${place.getAddress()}</p>
             <p class="place-category">Категория: ${place.getCategory()}</p>
-            <p class="place-price">${place.getPrice()}</p>
+            <p class="place-price">Цена: ${place.getPrice()}</p>
             <div class="place-rating">
-                <span class="rating-stars"></span>
                 <span class="rating-value">Рейтинг: ${place.getRating()}</span>
+                <button class="button button-stars" value="${place.getRating()}" disabled></button>
+                <i class="star"></i>
             </div>
         </div>
         <div class="image-block">
-            <h3>Фотографии</h3>
             <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
                 <div class="carousel-inner">
                     <div class="carousel-item active">
@@ -55,79 +54,80 @@
         </div>
         <button class="button button-like" value="${place.placeId}">
             <i class="heart"></i>
-            <span>Like</span>
         </button>
     </div>
-
     <div class="place-reviews-block">
-        <h3>Отзывы</h3>
         <#list reviews as review>
             <#if review??>
                 <div class="review-card">
-                    <p class="review-text">${review.text}</p>
-                    <p class="review-author">${review.authorFullName}</p>
-                    <p class="review-assessment">Оценка: ${review.assessment}</p>
-                    <p class="review-date">${review.date}</p>
-                </div>
-                <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#commentModal">
-                    Посмотреть комментарии
-                </button>
-                <div class="modal fade" id="commentModal" tabindex="-1" aria-labelledby="commentModalLabel"
-                     aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-scrollable">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="commentModalLabel">Комментарии</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Закрыть"></button>
-                            </div>
-                            <div class="modal-body">
-                                <#if review.commentsList??>
-                                    <#list review.commentsList as comment>
-                                        <div class="comment-card" id="comment-card">
-                                            <p class="comment-text">${comment.getText()}</p>
-                                            <span class="comment-author">${comment.getAuthorFullname()}, </span>
-                                            <span class="comment-date">${comment.getDate()}</span>
-                                        </div>
-                                    </#list>
-                                <#else>
-                                    <span>Пока комментариев нет(</span>
-                                </#if>
-                            </div>
-                            <div class="modal-footer">
-                                <div class="add-comment-block" style="">
-                                    <form class="comment-form" method="post">
-                                        <label for="comment-text"></label>
-                                        <textarea id="comment-text-text" required name="comment-text"></textarea>
-                                    </form>
+                    <div class="review">
+                        <p class="review-author">${review.authorFullName} </p>
+                        <p class="review-text">${review.text}</p>
+                        <p class="review-assessment">Оценка: ${review.assessment}</p>
+                        <p class="review-date">${review.date}</p>
+                    </div>
+                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal"
+                            data-bs-target="#commentModal-${review.reviewId}">комментарии
+                    </button>
+                    <div class="modal fade" id="commentModal-${review.reviewId}" tabindex="-1"
+                         aria-labelledby="commentModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-scrollable">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="commentModalLabel}">
+                                        Комментарии</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Закрыть"></button>
                                 </div>
-                                <button type="button" class="btn btn-primary" data-bs-target=""
-                                        value="${review.reviewId}">Добавить комментарий
-                                </button>
+                                <div id="modal-body-${review.reviewId}" class="modal-body">
+                                    <#if review.commentsList??>
+                                        <#list review.commentsList as comment>
+                                            <div class="comment-card" id="comment-card">
+                                                <p class="comment-text">${comment.getText()}</p>
+                                                <span class="comment-author">${comment.getAuthorFullname()}, </span>
+                                                <span class="comment-date">${comment.getDate()}</span>
+                                            </div>
+                                        </#list>
+                                    <#else>
+                                        <span>Пока комментариев нет(</span>
+                                    </#if>
+                                </div>
+                                <div class="modal-footer">
+                                    <div class="add-comment-block">
+                                        <form class="comment-form" method="post">
+                                            <label for="comment-text"></label>
+                                            <textarea id="comment-text-text-${review.reviewId}" name="comment-text" required></textarea>
+                                        </form>
+                                    </div>
+                                    <button type="button" class="btn btn-primary" value="${review.reviewId}">Добавить
+                                        комментарий
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </#if>
         </#list>
+        <form action="places-add-review">
+            <input type="hidden" name="placeId" value="${place.getPlaceId()}">
+            <input class="review-button" type="submit" value="Оставить отзыв">
+        </form>
     </div>
-
     <form action="places-list">
         <input class="back-button" type="submit" value="Назад">
     </form>
-    <form action="places-add-review">
-        <input type="hidden" name="placeId" value="${place.getPlaceId()}">
-        <input class="review-button" type="submit" value="Оставить отзыв">
-    </form>
+
 </div>
 
 <script>
-    $(".button-like").on('click', function (event) {
+    $(".button-like").on('click', function () {
         let placeId = $(this).val();
         console.log(placeId)
         $.ajax({
             type: "POST",
-            url: "places-detail",
+            url: "places-list",
             data: {"placeId": placeId},
             success: function (result) {
                 console.log(result);
@@ -137,11 +137,13 @@
     });
 
     $(".btn-primary").on('click', function () {
-        let text = $('#comment-text-text').val();
         let reviewId = $(this).val();
+        let text = $("#comment-text-text" + "-" + reviewId).val();
+        console.log("text: ", text);
+        console.log("reviewId: ", reviewId);
         $.ajax({
             type: "POST",
-            url: "add-comment",
+            url: "places-add-comment",
             data: {"comment-text": text, "reviewId": reviewId},
             success: function () {
                 console.log("success")
@@ -150,12 +152,6 @@
             }
 
         })
-    })
-
-    $(".btn-primary").on('click', function () {
-        let text = $('#comment-text-text').val();
-        let reviewId = $(this).val();
-        console.log(reviewId);
         $.ajax({
             url: "places-add-comment",
             dataType: "json",
@@ -166,13 +162,12 @@
                     '<span class="comment-author">' + response.authorFullname + ', </span>' +
                     '<span class="comment-date">' + response.date + '</span>' +
                     '</div>';
-                $(".modal-body").append(newComment);
+                $("#modal-body" + "-" + reviewId).append(newComment);
                 $('#comment-text-text').val('');
             },
             error: function () {
 
             }
-
         })
     })
 </script>

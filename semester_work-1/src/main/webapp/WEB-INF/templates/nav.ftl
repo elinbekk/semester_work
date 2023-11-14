@@ -1,7 +1,9 @@
 <link rel="stylesheet" href="styles/menu.css">
 <nav>
+    <button class="button-logo" value="logo" disabled>
+        <i class="logo"></i></button>
     <ul>
-        <li><a href="http://localhost:8080/semester_work_1_war_exploded/places-list">Куда пойти?</a></li>
+        <li><a href="http://localhost:8080/semester_work_1_war_exploded/places-list">Главная</a></li>
         <li><a class="btn dropdown-toggle"  role="button"
                id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
                 Мой профиль

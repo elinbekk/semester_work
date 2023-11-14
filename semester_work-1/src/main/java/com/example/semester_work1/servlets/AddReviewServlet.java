@@ -60,7 +60,7 @@ public class AddReviewServlet extends HttpServlet {
             review = new Review(UUID.randomUUID(), author.getUserId(), text, assessment, reviewDate, placeId, author.getName() + " " + author.getLastName());
             try {
                 reviewDao.save(review);
-                Helpers.redirect(response, request, "/places/detail?placeId=" + placeId);
+                Helpers.redirect(response, request, "/places-detail?placeId=" + placeId);
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }

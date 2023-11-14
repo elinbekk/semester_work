@@ -1,0 +1,49 @@
+.favourite-list{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+    justify-items: center;
+    padding: 100px;
+}
+
+body {
+    background-size: cover;
+    font-family: Hack, monospace;
+}
+.place__card {
+    position: relative;
+    border: 1px solid #ccc;
+    padding: 2px;
+}
+
+.place-name {
+    position: relative;
+    display: block;
+    text-decoration: none;
+    color: grey;
+}
+
+.place-name img {
+    width: 100%;
+    height: auto;
+    border-radius: 1px;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.button-delete {
+    bottom: 10px;
+    right: 10px;
+    padding: 5px;
+    border: none;
+    cursor: pointer;
+    background-color: transparent;
+}
+
+
+.trash {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    background-image: url('../svg/trash-blank-alt-svgrepo-com.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+}

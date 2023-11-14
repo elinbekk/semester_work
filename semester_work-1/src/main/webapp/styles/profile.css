@@ -1,0 +1,45 @@
+body {
+    background-size: cover;
+    font-family: Hack, monospace;
+}
+.content{
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 100px;
+    padding: 100px;
+}
+.user-page {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 100px;
+    background-color: #E3FDFD;
+    border-radius: 2rem;
+    border-width: 2px;
+    border-color: lightblue;
+    padding: 50px;
+}
+
+.photo-block img {
+    border-radius: 50%;
+}
+
+.user-info-block p {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.back-button,
+.edit-button {
+    background-color: #f5f5f5;
+    border: none;
+    color: #333;
+    padding: 10px 20px;
+    font-size: 16px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.back-button:hover,
+.edit-button:hover {
+    background-color: #ddd;
+}

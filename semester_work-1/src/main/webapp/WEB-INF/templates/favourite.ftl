@@ -7,6 +7,7 @@
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script type="application/javascript"
             src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="styles/favourite.css">
 </head>
 <body>
 <#include "nav.ftl"/>
@@ -14,10 +15,10 @@
     <#if places??>
         <#list places as place>
             <div class="place-card" id="${place.placeId}">
-                <a class="place-name" href="places/detail?placeId=${place.placeId}">${place.title}</a>
+                <a class="place-name" href="places-detail?placeId=${place.placeId}">${place.title}
+                    <img src="${place.image}" alt="${place.title}_photo"></a>
                 <button class="button-delete" value="${place.placeId}">
-                    <i class="heart"></i>
-                    <span>delete</span>
+                    <i class="trash"></i>
                 </button>
             </div>
         </#list>

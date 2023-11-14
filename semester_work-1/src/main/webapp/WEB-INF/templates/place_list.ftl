@@ -11,7 +11,7 @@
 </head>
 <body>
 <#include "nav.ftl"/>
-<h1>Кая барырга?</h1>
+<h1 class="header">Кая барырга?</h1>
 <div class="place-page">
 <#if places??>
     <#list places as place>
@@ -27,7 +27,7 @@
 </#if>
 </div>
 <script>
-    $(".button-like").on('click', function (event) {
+    $(".button-like").on('click', function () {
         let placeId = $(this).val();
         console.log(placeId)
         $.ajax({

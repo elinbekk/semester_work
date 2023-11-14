@@ -5,13 +5,16 @@
     <title></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles/profile.css">
 </head>
 <body>
 <#include "nav.ftl"/>
 <div class="user-page">
-    <p class="user-name">Имя: ${user.getName()}</p>
-    <p class="user-lastname">Фамилия: ${user.getLastName()}</p>
-    <p class="user-email">Email: ${user.getEmail()}</p>
+    <div class="user-info-block">
+        <p class="user-name">Имя: ${user.getName()}</p>
+        <p class="user-lastname">Фамилия: ${user.getLastName()}</p>
+        <p class="user-email">Email: ${user.getEmail()}</p>
+    </div>
 
     <div class="edit-form">
         <#--        <label>-->
@@ -24,7 +27,7 @@
         <#--            <input type="text" class="edit-email" value="${user.getEmail()}">-->
         <#--        </label>-->
         <#--        <label for="avatar">Choose a profile picture:</label>-->
-        <form action="edit" method="post" enctype="multipart/form-data">
+        <form action="profile-edit" method="post" enctype="multipart/form-data">
             <input type="file" id="avatar" name="avatar" accept="image/*"/>
             <input class="edit-button" type="submit" value="Обновить фото профиля">
         </form>

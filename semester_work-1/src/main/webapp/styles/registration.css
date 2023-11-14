@@ -1,0 +1,62 @@
+body{
+    background-size: cover;
+    background-image:url('https://sun9-51.userapi.com/impg/-1cVFhkPxyOX1xQJ1wjtqOhgGTAnFUUAhFb8SA/6ild-lKCvdM.jpg?size=1100x733&quality=95&sign=9bd84ad681a400ec19be73c6100091f5&c_uniq_tag=7zIOF7ERIF7aiVF-Gu9DSdpXc4ovFITU8S7r3Ee3-UY&type=album');
+    background-color:rgba(0, 0, 0, 0.5);
+    font-family: Hack, monospace;
+}
+.form{
+    background-color: rgba(255, 240, 245, 0.56);
+    padding: 30px;
+    border-radius: 1rem;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: grid;
+    place-items: center;
+    justify-items: center;
+    margin: auto;
+    row-gap: 30px;
+}
+.form-input{
+    display: grid;
+    grid-template-columns:1fr;
+    justify-items: center;
+    align-items: center;
+    row-gap: 24px;
+}
+
+.form__userdata{
+    width: 100%;
+    height: calc(2rem + 2px);
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: rgb(128, 128, 128);
+    background-color: #f1f1f1;
+    border: 1px solid;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.login-button{
+    border-radius: 0.25rem;
+    background: dodgerblue;
+    color: rgb(241, 241, 241);
+    padding: 8px 16px;
+    font-size: 16px;
+    border-width: 0;
+}
+.auth-button{
+    background-color: honeydew;
+    border-radius: 0.25rem;
+    padding: 8px 16px;
+    font-size: 16px;
+    border-width: 0;
+    width: 100%;
+}
+.text{
+    font-size: 24px;
+}
+
+

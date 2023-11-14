@@ -126,8 +126,8 @@
     </filter>
     <filter-mapping>
         <filter-name>authFilter</filter-name>
-        <url-pattern>/places/*</url-pattern>
-        <url-pattern>/profile/*</url-pattern>
+        <url-pattern>/places</url-pattern>
+        <url-pattern>/profile</url-pattern>
         <url-pattern>/about_us</url-pattern>
     </filter-mapping>
 
