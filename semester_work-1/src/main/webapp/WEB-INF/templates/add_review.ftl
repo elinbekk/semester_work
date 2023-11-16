@@ -27,7 +27,7 @@
         <form class="review-form" method="post">
             <p>Ваш отзыв:</p>
             <label for="review-text"></label>
-            <textarea id="review-text" required name="review-text"></textarea>
+            <textarea id="review-text" required name="review-text" maxlength="300"></textarea>
             <span class="message">Максимальное количество символов - 200. Сейчас введено: </span>
             <span id="counter">0</span>
             <div>
@@ -42,10 +42,11 @@
                 <input type="radio" id="choice5" name="assessment" value="5"/>
                 <label for="choice5">5</label>
             </div>
-            <input class="review-button" type="submit" value="Оставить отзыв">
+            <input class="review-button" type="submit" value="Оставить отзыв" required>
         </form>
     </div>
-    <form action="places-detail?placeId=${place.getPlaceId()}">
+    <form action="places-detail">
+        <input type="hidden" name="placeId" value="${place.getPlaceId()}">
         <input class="back-button" type="submit" value="Назад">
     </form>
 </div>
@@ -55,7 +56,7 @@
     obj.oninput = function() {
         let textArea = document.getElementById("review-text");
         document.getElementById('counter').innerText = textArea.value.length;
-        if(textArea.value.length === 20){
+        if(textArea.value.length === 300){
             alert('Введено максимальное количество символов😊');
         }
     };

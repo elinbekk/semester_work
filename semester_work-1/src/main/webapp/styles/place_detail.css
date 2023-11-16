@@ -36,7 +36,6 @@ body {
     background-size: contain;
     background-repeat: no-repeat;
 }
-
 .place-reviews-block {
     background-color: #FFFBE0;
     display: grid;
@@ -71,11 +70,12 @@ body {
     padding: 10px;
 }
 
-.button-like {
+.image-block{
     position: relative;
-    bottom: 10px;
-    right: 10px;
-    padding: 5px;
+}
+.button-like {
+    position: absolute;
+    right: -15px;
     border: none;
     cursor: pointer;
     background-color: transparent;

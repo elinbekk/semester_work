@@ -51,10 +51,10 @@
                     <span class="visually-hidden">Next</span>
                 </button>
             </div>
+                <button class="button button-like" value="${place.placeId}">
+                    <i class="heart"></i>
+                </button>
         </div>
-        <button class="button button-like" value="${place.placeId}">
-            <i class="heart"></i>
-        </button>
     </div>
     <div class="place-reviews-block">
         <#list reviews as review>
@@ -97,7 +97,8 @@
                                     <div class="add-comment-block">
                                         <form class="comment-form" method="post">
                                             <label for="comment-text"></label>
-                                            <textarea id="comment-text-text-${review.reviewId}" name="comment-text" required></textarea>
+                                            <textarea id="comment-text-text-${review.reviewId}" name="comment-text"
+                                                      required></textarea>
                                         </form>
                                     </div>
                                     <button type="button" class="btn btn-primary" value="${review.reviewId}">Добавить
@@ -147,6 +148,7 @@
             data: {"comment-text": text, "reviewId": reviewId},
             success: function () {
                 console.log("success")
+                $('#comment-text-text').val('');
             },
             error: function () {
             }

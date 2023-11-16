@@ -1,5 +1,6 @@
 package com.example.semester_work1.servlets;
 
+import com.example.semester_work1.Helpers;
 import com.example.semester_work1.dao.impl.ProfilePhotoDaoImpl;
 import com.example.semester_work1.dao.impl.UserDaoImpl;
 import com.example.semester_work1.models.ProfilePhoto;
@@ -19,7 +20,6 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 @MultipartConfig
 public class EditProfileServlet extends HttpServlet {
@@ -61,7 +61,12 @@ public class EditProfileServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Part avatar = request.getPart("avatar");
         User user = (User) request.getSession().getAttribute("user");
-        fus.upload(user.getUserId(), avatar.getSubmittedFileName(), avatar.getSize(), avatar.getContentType(), avatar.getInputStream());
+        System.out.println(avatar.getSubmittedFileName());
+        boolean uploaded = fus.upload(user.getUserId(), avatar.getSubmittedFileName(), avatar.getSize(), avatar.getContentType(), avatar.getInputStream());
+        response.getWriter().write("img/"+ avatar.getSubmittedFileName());
+        if (uploaded) {
+            Helpers.redirect(response, request, "/profile");
+        }
     }
 
 }

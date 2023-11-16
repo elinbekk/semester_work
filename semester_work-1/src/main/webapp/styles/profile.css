@@ -17,6 +17,7 @@ body {
     border-width: 2px;
     border-color: lightblue;
     padding: 50px;
+    margin:100px;
 }
 
 .photo-block img {
@@ -26,6 +27,13 @@ body {
 .user-info-block p {
     font-size: 18px;
     margin-bottom: 10px;
+}
+.button-block{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 50px;
+    align-items: center;
+    justify-items: center;
 }
 
 .back-button,
@@ -37,9 +45,14 @@ body {
     font-size: 16px;
     margin-top: 10px;
     cursor: pointer;
+    border-radius: 0.5rem;
 }
 
 .back-button:hover,
 .edit-button:hover {
     background-color: #ddd;
+}
+.edit-form{
+    display: grid;
+    justify-items: center;
 }

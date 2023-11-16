@@ -8,4 +8,5 @@ public class Helpers {
     public static void redirect(HttpServletResponse response, HttpServletRequest request, String path) throws IOException {
         response.sendRedirect(request.getContextPath() + path);
     }
+
 }

@@ -35,7 +35,14 @@ public class ProfilePhotoDaoImpl implements ProfilePhotoDao {
 
     @Override
     public void delete(UUID id) {
-
+        PreparedStatement statement = null;
+        try {
+            statement = JDBCConnection.getConn().prepareStatement("delete from profile_photo where user_id = ?");
+            statement.setObject(1, id);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
