@@ -7,12 +7,14 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.SQLException;
+import java.util.Base64;
 import java.util.UUID;
 
 public class FileService {
-    private String path = "C:/javaee/semester_works/semester_work-1/src/main/webapp/img/";
+    private String path;
     private ProfilePhotoDaoImpl profilePhotoDao;
 
     public FileService(ProfilePhotoDaoImpl profilePhotoDao) {
@@ -40,5 +42,9 @@ public class FileService {
         }
         File file = new File(path + filename);
         return file.exists();
+    }
+
+    public void setPath(String path) {
+        this.path = path + "/img/";
     }
 }

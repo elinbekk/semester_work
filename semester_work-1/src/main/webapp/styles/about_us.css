@@ -1,0 +1,16 @@
+.content{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 50px;
+    margin: 100px;
+    background-color: #E3FDFD;
+    border-radius: 0.5rem;
+    column-gap: 50px;
+}
+.content__photo img{
+    width: 300px;
+}
+.content__text{
+    font-size: 20px;
+    font-family: Hack, monospace;
+}

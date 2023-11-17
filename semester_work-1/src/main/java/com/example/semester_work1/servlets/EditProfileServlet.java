@@ -16,7 +16,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
@@ -33,6 +35,7 @@ public class EditProfileServlet extends HttpServlet {
         this.userDao = (UserDaoImpl) getServletContext().getAttribute("userDao");
         this.profilePhotoDao = (ProfilePhotoDaoImpl) getServletContext().getAttribute("ppDao");
         this.fus = (FileService) getServletContext().getAttribute("fileUploadService");
+        this.fus.setPath(getServletContext().getRealPath("/"));
     }
 
     @Override
@@ -61,9 +64,9 @@ public class EditProfileServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Part avatar = request.getPart("avatar");
         User user = (User) request.getSession().getAttribute("user");
-        System.out.println(avatar.getSubmittedFileName());
-        boolean uploaded = fus.upload(user.getUserId(), avatar.getSubmittedFileName(), avatar.getSize(), avatar.getContentType(), avatar.getInputStream());
-        response.getWriter().write("img/"+ avatar.getSubmittedFileName());
+        //System.out.println(avatar.getSubmittedFileName());
+        boolean uploaded = fus.upload(user.getUserId(), avatar.getSubmittedFileName(), avatar.getSize(),
+                avatar.getContentType(), avatar.getInputStream());
         if (uploaded) {
             Helpers.redirect(response, request, "/profile");
         }

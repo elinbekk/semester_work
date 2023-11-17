@@ -24,6 +24,7 @@ public class UserProfileServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         FreemarkerConfigSingleton.setServletContext(this.getServletContext());
+        System.out.println(getServletContext().getRealPath("/"));
         this.profilePhotoDao = (ProfilePhotoDaoImpl) getServletContext().getAttribute("ppDao");
     }
 
