@@ -8,11 +8,11 @@ public class Place {
     private String address;
     private String category;
     private String description;
-    private int price;
+    private String price;
     private double rating;
     private String image;
 
-    public Place(UUID placeId, String title, String address, String category, String description, int price, double rating, String image) {
+    public Place(UUID placeId, String title, String address, String category, String description, String price, double rating, String image) {
         this.placeId = placeId;
         this.title = title;
         this.address = address;
@@ -52,7 +52,7 @@ public class Place {
         return description;
     }
 
-    public int getPrice() {
+    public String getPrice() {
         return price;
     }
 
@@ -87,7 +87,7 @@ public class Place {
         this.description = description;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 

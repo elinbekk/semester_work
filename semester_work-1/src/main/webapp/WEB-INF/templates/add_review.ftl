@@ -28,7 +28,7 @@
             <p>Ваш отзыв:</p>
             <label for="review-text"></label>
             <textarea id="review-text" required name="review-text" maxlength="300"></textarea>
-            <span class="message">Максимальное количество символов - 200. Сейчас введено: </span>
+            <span class="message">Максимальное количество символов - 300. Сейчас введено: </span>
             <span id="counter">0</span>
             <div>
                 <input type="radio" id="choice1" name="assessment" value="1"/>

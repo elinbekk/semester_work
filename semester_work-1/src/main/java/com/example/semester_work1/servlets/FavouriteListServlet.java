@@ -2,7 +2,6 @@ package com.example.semester_work1.servlets;
 
 import com.example.semester_work1.dao.impl.FavouritePlaceDaoImpl;
 import com.example.semester_work1.dao.impl.PlaceDaoImpl;
-import com.example.semester_work1.models.FavouritePlace;
 import com.example.semester_work1.models.Place;
 import com.example.semester_work1.models.User;
 import com.example.semester_work1.utils.FreemarkerConfigSingleton;
@@ -38,8 +37,8 @@ public class FavouriteListServlet extends HttpServlet {
         User user = (User) request.getSession(false).getAttribute("user");
         List<UUID> fpId = fpDao.getUsersAllFavourite(user.getUserId());
         List<Place> places = new ArrayList<>();
-        for (int i = 0; i < fpId.size(); i++){
-            Place place = placeDao.getById(fpId.get(i)).get();
+        for (UUID uuid : fpId) {
+            Place place = placeDao.getById(uuid).get();
             places.add(place);
         }
         HashMap<String, Object> root = new HashMap<>();
@@ -54,7 +53,7 @@ public class FavouriteListServlet extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException {
         User user = (User) request.getSession(false).getAttribute("user");
         UUID placeId = UUID.fromString(request.getParameter("placeId"));
         try {

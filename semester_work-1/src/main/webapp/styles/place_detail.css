@@ -21,6 +21,7 @@ body {
     border-color: dodgerblue;
     border-radius: 1rem;
     border-width: 1px;
+    column-gap: 60px;
 }
 
 .button-stars {
@@ -70,7 +71,7 @@ body {
     padding: 10px;
 }
 
-.image-block{
+.image-block {
     position: relative;
 }
 .button-like {
