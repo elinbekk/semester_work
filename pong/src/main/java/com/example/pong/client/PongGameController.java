@@ -35,16 +35,14 @@ public class PongGameController {
         if (parent == null) {
             BorderPane root = new BorderPane();
             parent = root;
-
             mainMenu = primaryStage.getScene().getRoot();
-
             GridPane topMenu = new GridPane();
             root.setTop(topMenu);
             BorderPane.setAlignment(topMenu, Pos.CENTER);
             setBackgroundColor(topMenu, Color.DARKGREY);
             setupTopMenu(topMenu, primaryStage);
             SetupKeyListener(primaryStage);
-            TestUpdateInit(root);
+            gameLoop(root);
         }
         primaryStage.setTitle("PONG");
         primaryStage.getScene().setRoot(parent);
@@ -111,7 +109,7 @@ public class PongGameController {
         topMenu.add(buttonsBox, 0, 0);
     }
 
-    public void TestUpdateInit(BorderPane root) {
+    public void gameLoop(BorderPane root) {
         Pane wrapperPane = new Pane();
         root.setCenter(wrapperPane);
         BorderPane.setAlignment(wrapperPane, Pos.CENTER);
@@ -123,19 +121,19 @@ public class PongGameController {
         gameCanvas.widthProperty().bind(wrapperPane.widthProperty());
         gameCanvas.heightProperty().bind(wrapperPane.heightProperty());
 
-        Ball ball = new Ball(new HelpingVector(), new HelpingVector(10, 10), Color.WHITE, Color.BLACK);
-        Paddle paddle1 = new Paddle(new HelpingVector(), new HelpingVector(10, 35), Color.BLACK);
-        Paddle paddle2 = new Paddle(new HelpingVector(), new HelpingVector(10, 35), Color.BLUE);
+        Ball ball = new Ball(new HelpingVector(), new HelpingVector(10, 10), Color.WHITE);
+        Paddle paddle1 = new Paddle(new HelpingVector(), new HelpingVector(10, 35), Color.WHITE);
+        Paddle paddle2 = new Paddle(new HelpingVector(), new HelpingVector(10, 35), Color.WHITE);
 
         TextGameObject scoreOne = new TextGameObject(Integer.toString(point1),
-                Font.font("arial", 40), new HelpingVector(), new HelpingVector(), Color.WHITE, Color.BLACK);
+                Font.font("arial", 40), new HelpingVector(), new HelpingVector(), Color.WHITE);
         TextGameObject scoreTwo = new TextGameObject(Integer.toString(point2),
-                Font.font("arial", 40), new HelpingVector(), new HelpingVector(), Color.WHITE, Color.BLACK);
+                Font.font("arial", 40), new HelpingVector(), new HelpingVector(), Color.WHITE);
 
         TextGameObject winner = new TextGameObject("You win!",
-                Font.font("impact", 80), new HelpingVector(-30.f, 0.f), new HelpingVector(), Color.WHITE, Color.BLACK);
+                Font.font("impact", 80), new HelpingVector(-30.f, 0.f), new HelpingVector(), Color.WHITE);
         TextGameObject loser = new TextGameObject("You lose!",
-                Font.font("impact", 80), new HelpingVector(-35.f, 0.f), new HelpingVector(), Color.WHITE, Color.BLACK);
+                Font.font("impact", 80), new HelpingVector(-35.f, 0.f), new HelpingVector(), Color.WHITE);
 
         gameObjects.add(ball);
         gameObjects.add(paddle1);
@@ -152,8 +150,8 @@ public class PongGameController {
 
         paddle1.setPosition(-(GameObject.getCanvasWidth() / 2) + 5, 0);
         paddle2.setPosition((GameObject.getCanvasWidth() / 2) - 10, 0);
-        scoreOne.setPosition(-(GameObject.getCanvasWidth() / 2) + 50, GameObject.getCanvasHeight());
-        scoreTwo.setPosition((GameObject.getCanvasWidth() / 2) - 50, GameObject.getCanvasHeight());
+        scoreOne.setPosition(-(GameObject.getCanvasWidth() / 2) + 50, GameObject.getCanvasHeight()/2);
+        scoreTwo.setPosition((GameObject.getCanvasWidth() / 2) - 50, GameObject.getCanvasHeight()/2);
 
         new AnimationTimer() {
             @Override

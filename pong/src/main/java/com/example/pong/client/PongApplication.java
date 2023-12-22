@@ -22,7 +22,7 @@ public class PongApplication extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage){
+    public void start(Stage primaryStage) throws Exception {
         BorderPane root = new BorderPane();
         setBackgroundColor(root, Color.BLACK);
         mainMenu = new GridPane();
@@ -30,6 +30,12 @@ public class PongApplication extends Application {
         setupMenuButtons(mainMenu, primaryStage);
         primaryStage.setTitle("PONG");
         primaryStage.setScene(new Scene(root, 600, 400));
+        Text pongTitle = new Text("PONG");
+        pongTitle.setTextAlignment(TextAlignment.CENTER);
+        pongTitle.setFill(Color.WHITE);
+        pongTitle.setFont(Font.font("Impact", FontWeight.EXTRA_BOLD, FontPosture.REGULAR, 80));
+        root.setTop(pongTitle);
+        BorderPane.setAlignment(pongTitle, Pos.CENTER);
         primaryStage.show();
     }
     public void setupMenuButtons(GridPane menu, Stage primaryStage) {

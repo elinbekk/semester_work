@@ -11,17 +11,17 @@ public class Ball extends GameObject {
 
     public Ball() {
         super();
-        SetFillColor(Color.BLACK);
+        SetFillColor(Color.WHITE);
     }
 
-    public Ball(HelpingVector position, HelpingVector size, Color fill, Color stroke) {
+    public Ball(HelpingVector position, HelpingVector size, Color fill) {
         super(position, size);
         SetFillColor(fill);
     }
 
     public void drawObject(GraphicsContext gc) {
         gc.setFill(fillColor);
-        List<HelpingVector> posSize = ConvertToWorld(position, size);
+        List<HelpingVector> posSize = convertToWorld(position, size);
         gc.fillOval(posSize.get(0).x, posSize.get(0).y, posSize.get(1).x, posSize.get(1).y);
     }
 

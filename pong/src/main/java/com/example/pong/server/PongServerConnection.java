@@ -5,9 +5,9 @@ import java.net.*;
 import java.util.*;
 
 public class PongServerConnection implements Runnable {
-    private Socket socket = null;
-    private BufferedReader bufferedReader = null;
-    private PrintWriter printWriter = null;
+    private Socket socket;
+    private BufferedReader bufferedReader;
+    private PrintWriter printWriter;
     private boolean keepReading = true;
     public PongServerConnection otherClient = null;
 
@@ -63,7 +63,7 @@ public class PongServerConnection implements Runnable {
                     }
                 } else if (command.equalsIgnoreCase("POSITION")) {
                     String[] information = request.split("\\s+");
-                    paddlePositionY = Float.parseFloat(information[1]);
+                    paddlePositionY = Double.parseDouble(information[1]);
                     System.out.println("y = " + paddlePositionY);
                     otherClient.sendResponse(Double.toString(paddlePositionY));
                 } else {

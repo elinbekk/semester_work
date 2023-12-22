@@ -7,13 +7,12 @@ import com.example.pong.client.PongClient;
 import javafx.scene.canvas.GraphicsContext;
 
 public abstract class GameObject {
+    protected static int WIDTH = 600;
+    protected static int HEIGHT = 400;
     protected static int canvasWidth = 500;
     protected static int canvasHeight = 500;
 
-    protected static int WIDTH = 600;
-    protected static int HEIGHT = 400;
-
-    protected HelpingVector position;
+    public HelpingVector position;
     protected HelpingVector size;
     protected HelpingVector speed = new HelpingVector();
     protected HelpingVector accelleration = new HelpingVector();
@@ -28,19 +27,19 @@ public abstract class GameObject {
         setSize(size);
     }
 
-    protected void setSpeed(HelpingVector speed) {
+    public void setSpeed(HelpingVector speed) {
         this.speed = speed;
     }
 
-    protected void setSpeedX(double x) {
+    public void setSpeedX(double x) {
         speed.x = x;
     }
 
-    protected HelpingVector getSpeed() {
+    public HelpingVector getSpeed() {
         return speed;
     }
 
-    protected void ballSpeed() {
+    public void ballSpeed() {
         double dt = 0.05;
         position = position.add(speed.mult(dt)).add
                 (accelleration.mult(dt * dt).mult(0.5));
@@ -71,7 +70,7 @@ public abstract class GameObject {
         return false;
     }
 
-    protected boolean isCollision(GameObject paddle) {
+    public boolean isCollision(GameObject paddle) {
         isWallCollision();
         HelpingVector topLeft = paddle.getPosition();
         HelpingVector topRight = new HelpingVector(paddle.getPositionX() + paddle.getSizeX(),
@@ -104,57 +103,57 @@ public abstract class GameObject {
     }
 
 
-    protected void drawObject(GraphicsContext gc) {
+    public void drawObject(GraphicsContext gc) {
     }
-    protected List<HelpingVector> ConvertToWorld(HelpingVector position, HelpingVector size) {
+
+    protected List<HelpingVector> convertToWorld(HelpingVector position, HelpingVector size) {
         List<HelpingVector> multiReturn = new ArrayList();
         multiReturn.add(new HelpingVector());
         multiReturn.add(new HelpingVector());
-        if (WIDTH != 0) {
-            double aspectRatio =  WIDTH / HEIGHT;
-            double aspectWorldWidth = canvasWidth * aspectRatio;
-            double percentPosX = (position.x + (canvasWidth / 2)) / canvasWidth;
-            double percentPosY = (position.y + (canvasHeight / 2)) / (float) canvasHeight;
-            double windowPosX = percentPosX * (float) WIDTH;
-            double windowPosY = percentPosY * (float) HEIGHT;
-            multiReturn.get(0).set(windowPosX, windowPosY);
-            double percentSizeX = (size.x) / aspectWorldWidth;
-            double percentSizeY = (size.y) / canvasHeight;
-            double windowSizeX = percentSizeX * (float) WIDTH;
-            double windowSizeY = percentSizeY * (float) HEIGHT;
-            multiReturn.get(1).set(windowSizeX, windowSizeY);
-        }
+        double aspectRatio = (double) WIDTH / HEIGHT;
+        double aspectWorldWidth = canvasWidth * aspectRatio;
+        double percentPosX = (position.x + ((double) canvasWidth / 2)) / canvasWidth;
+        double percentPosY = (position.y + ((double) canvasHeight / 2)) / canvasHeight;
+        double windowPosX = percentPosX * (float) WIDTH;
+        double windowPosY = percentPosY * (float) HEIGHT;
+        multiReturn.get(0).set(windowPosX, windowPosY);
+        double percentSizeX = (size.x) / aspectWorldWidth;
+        double percentSizeY = (size.y) / canvasHeight;
+        double windowSizeX = percentSizeX * (float) WIDTH;
+        double windowSizeY = percentSizeY * (float) HEIGHT;
+        multiReturn.get(1).set(windowSizeX, windowSizeY);
+
         return multiReturn;
     }
 
-    protected void sendPositionData(PongClient client) {
+    public void sendPositionData(PongClient client) {
         if (client.isConnected()) {
             client.sendRequest("POSITION " + position.y);
             System.out.println("POSITION " + position.y);
         }
     }
 
-    protected static void setCanvasWidth(int width) {
+    public static void setCanvasWidth(int width) {
         canvasWidth = width;
     }
 
-    protected static void setCanvasHeight(int height) {
+    public static void setCanvasHeight(int height) {
         canvasHeight = height;
     }
 
-    protected static void setWindowWidth(int width) {
+    public static void setWindowWidth(int width) {
         WIDTH = width;
     }
 
-    protected static void setWindowHeight(int height) {
+    public static void setWindowHeight(int height) {
         HEIGHT = height;
     }
 
-    protected void setPosition(HelpingVector position) {
+    public void setPosition(HelpingVector position) {
         this.position = position;
     }
 
-    protected void setPosition(double x, double y) {
+    public void setPosition(double x, double y) {
         position.x = x;
         position.y = y;
     }
@@ -163,7 +162,7 @@ public abstract class GameObject {
         position.x = x;
     }
 
-    protected void setPositionY(double y) {
+    public void setPositionY(double y) {
         position.y = y;
     }
 
@@ -171,11 +170,11 @@ public abstract class GameObject {
         this.size = size;
     }
 
-    protected static double getCanvasWidth() {
+    public static double getCanvasWidth() {
         return canvasWidth;
     }
 
-    protected static float getCanvasHeight() {
+    public static float getCanvasHeight() {
         return canvasHeight;
     }
 
@@ -183,11 +182,11 @@ public abstract class GameObject {
         return position;
     }
 
-    protected double getPositionX() {
+    public double getPositionX() {
         return position.x;
     }
 
-    protected double getPositionY() {
+    public double getPositionY() {
         return position.y;
     }
 

@@ -10,7 +10,7 @@ public class Paddle extends GameObject {
 
     public Paddle() {
         super();
-        setFillColor(Color.BLACK);
+        setFillColor(Color.WHITE);
 
     }
 
@@ -21,12 +21,11 @@ public class Paddle extends GameObject {
 
     public void drawObject(GraphicsContext gc) {
         gc.setFill(fillColor);
-
-        List<HelpingVector> posSize = ConvertToWorld(position, size);
+        List<HelpingVector> posSize = convertToWorld(position, size);
         gc.fillRect(posSize.get(0).x, posSize.get(0).y, posSize.get(1).x, posSize.get(1).y);
     }
 
-    protected void setFillColor(Color fill)
+    public void setFillColor(Color fill)
     {
         fillColor = fill;
     }

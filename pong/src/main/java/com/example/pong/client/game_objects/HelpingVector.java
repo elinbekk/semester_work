@@ -1,7 +1,7 @@
 package com.example.pong.client.game_objects;
 
 public class HelpingVector {
-    double x = 0;
+     public double x = 0;
     double y = 0;
 
     public HelpingVector() {
