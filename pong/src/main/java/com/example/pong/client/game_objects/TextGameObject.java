@@ -18,17 +18,16 @@ public class TextGameObject extends GameObject {
         SetFont(Font.font("Arial"));
     }
 
-    public TextGameObject(String text, Font font, HelpingVector pos, HelpingVector size, Color fill) {
+    public TextGameObject(String text, Font font, Vector2D pos, Vector2D size, Color fill) {
         super(pos, size);
         setText(text);
         SetFont(font);
         SetFillColor(fill);
     }
 
-
     public void drawObject(GraphicsContext gc) {
         gc.setFill(fillColor);
-        List<HelpingVector> posSize = convertToWorld(position, size);
+        List<Vector2D> posSize = convertToDrawing(position, size);
         gc.setFont(font);
         gc.fillText(text, posSize.get(0).x, posSize.get(0).y);
     }

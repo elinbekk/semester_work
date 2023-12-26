@@ -1,19 +1,19 @@
 package com.example.pong.client.game_objects;
 
-public class HelpingVector {
+public class Vector2D {
      public double x = 0;
     double y = 0;
 
-    public HelpingVector() {
+    public Vector2D() {
         x = 0;
         y = 0;
     }
-    public HelpingVector(double x1, double y2) {
+    public Vector2D(double x1, double y2) {
         x = x1;
         y = y2;
     }
 
-    public HelpingVector(HelpingVector copy) {
+    public Vector2D(Vector2D copy) {
         x = copy.x;
         y = copy.y;
     }
@@ -22,22 +22,22 @@ public class HelpingVector {
         return Math.sqrt((x * x) + (y * y));
     }
 
-    public HelpingVector add(HelpingVector v2) {
-        HelpingVector temp = new HelpingVector(v2);
+    public Vector2D add(Vector2D v2) {
+        Vector2D temp = new Vector2D(v2);
         temp.x += x;
         temp.y += y;
         return temp;
     }
 
-    public HelpingVector sub(HelpingVector v2) {
-        HelpingVector temp = new HelpingVector(v2);
+    public Vector2D sub(Vector2D v2) {
+        Vector2D temp = new Vector2D(v2);
         temp.x -= x;
         temp.y -= y;
         return temp;
     }
 
-    public HelpingVector mult(double scalar) {
-        HelpingVector temp = new HelpingVector(this);
+    public Vector2D mult(double scalar) {
+        Vector2D temp = new Vector2D(this);
         temp.x *= scalar;
         temp.y *= scalar;
         return temp;

@@ -12,22 +12,22 @@ public abstract class GameObject {
     protected static int canvasWidth = 500;
     protected static int canvasHeight = 500;
 
-    public HelpingVector position;
-    protected HelpingVector size;
-    protected HelpingVector speed = new HelpingVector();
-    protected HelpingVector accelleration = new HelpingVector();
+    public Vector2D position;
+    protected Vector2D size;
+    protected Vector2D speed = new Vector2D();
+    protected Vector2D accelleration = new Vector2D();
 
     protected GameObject() {
-        setPosition(new HelpingVector());
-        setSize(new HelpingVector(10, 10));
+        setPosition(new Vector2D());
+        setSize(new Vector2D(10, 10));
     }
 
-    protected GameObject(HelpingVector position, HelpingVector size) {
+    protected GameObject(Vector2D position, Vector2D size) {
         setPosition(position);
         setSize(size);
     }
 
-    public void setSpeed(HelpingVector speed) {
+    public void setSpeed(Vector2D speed) {
         this.speed = speed;
     }
 
@@ -35,7 +35,7 @@ public abstract class GameObject {
         speed.x = x;
     }
 
-    public HelpingVector getSpeed() {
+    public Vector2D getSpeed() {
         return speed;
     }
 
@@ -54,7 +54,7 @@ public abstract class GameObject {
         }
     }
 
-    private boolean isPointCollision(HelpingVector point, HelpingVector pos, HelpingVector size) {
+    private boolean isPointCollision(Vector2D point, Vector2D pos, Vector2D size) {
         if ((point.x < (pos.x + size.x / 2)) && (point.x > (pos.x - size.x / 2))) {
             if ((point.y < pos.y + size.y / 2) && (point.y > pos.y - size.y / 2)) {
                 return true;
@@ -63,7 +63,7 @@ public abstract class GameObject {
         return false;
     }
 
-    private boolean isBallCollision(HelpingVector point1, double r1, HelpingVector point2, double r2) {
+    private boolean isBallCollision(Vector2D point1, double r1, Vector2D point2, double r2) {
         if ((point2.sub(point1).getLength() < (r1 + r2))) {
             return false;
         }
@@ -72,12 +72,12 @@ public abstract class GameObject {
 
     public boolean isCollision(GameObject paddle) {
         isWallCollision();
-        HelpingVector topLeft = paddle.getPosition();
-        HelpingVector topRight = new HelpingVector(paddle.getPositionX() + paddle.getSizeX(),
+        Vector2D topLeft = paddle.getPosition();
+        Vector2D topRight = new Vector2D(paddle.getPositionX() + paddle.getSizeX(),
                 paddle.getPositionY());
-        HelpingVector bottomLeft = new HelpingVector(paddle.getPositionX(),
+        Vector2D bottomLeft = new Vector2D(paddle.getPositionX(),
                 paddle.getPositionY() + paddle.getSizeY());
-        HelpingVector bottomRight = new HelpingVector(paddle.getPositionX() + paddle.getSizeX(),
+        Vector2D bottomRight = new Vector2D(paddle.getPositionX() + paddle.getSizeX(),
                 paddle.getPositionY() + paddle.getSizeY());
 
         double diameter = getSizeX();
@@ -85,18 +85,18 @@ public abstract class GameObject {
         double r1H = paddle.getSizeY();
         double r2W = paddle.getSizeX();
         double r2H = paddle.getSizeY();
-        HelpingVector[] points = new HelpingVector[]{topLeft, topRight, bottomLeft, bottomRight};
-        HelpingVector ballCenter = position.add(size.mult(0.5));
-        HelpingVector paddleCenter = paddle.getPosition().add(paddle.getSize().mult(0.5));
-        for (HelpingVector point : points) {
+        Vector2D[] points = new Vector2D[]{topLeft, topRight, bottomLeft, bottomRight};
+        Vector2D ballCenter = position.add(size.mult(0.5));
+        Vector2D paddleCenter = paddle.getPosition().add(paddle.getSize().mult(0.5));
+        for (Vector2D point : points) {
             if (isBallCollision(point, diameter / 2, ballCenter, diameter / 2)) {
                 return true;
             }
         }
-        if (isPointCollision(ballCenter, paddleCenter, new HelpingVector(r1W, r1H))) {
+        if (isPointCollision(ballCenter, paddleCenter, new Vector2D(r1W, r1H))) {
             return true;
         }
-        if (isPointCollision(ballCenter, paddleCenter, new HelpingVector(r2W, r2H))) {
+        if (isPointCollision(ballCenter, paddleCenter, new Vector2D(r2W, r2H))) {
             return true;
         }
         return false;
@@ -106,21 +106,21 @@ public abstract class GameObject {
     public void drawObject(GraphicsContext gc) {
     }
 
-    protected List<HelpingVector> convertToWorld(HelpingVector position, HelpingVector size) {
-        List<HelpingVector> multiReturn = new ArrayList();
-        multiReturn.add(new HelpingVector());
-        multiReturn.add(new HelpingVector());
+    protected List<Vector2D> convertToDrawing(Vector2D position, Vector2D size) {
+        List<Vector2D> multiReturn = new ArrayList();
+        multiReturn.add(new Vector2D());
+        multiReturn.add(new Vector2D());
         double aspectRatio = (double) WIDTH / HEIGHT;
-        double aspectWorldWidth = canvasWidth * aspectRatio;
+        double acpectDrawingRatio = canvasWidth * aspectRatio;
         double percentPosX = (position.x + ((double) canvasWidth / 2)) / canvasWidth;
         double percentPosY = (position.y + ((double) canvasHeight / 2)) / canvasHeight;
-        double windowPosX = percentPosX * (float) WIDTH;
-        double windowPosY = percentPosY * (float) HEIGHT;
+        double windowPosX = percentPosX * (double) WIDTH;
+        double windowPosY = percentPosY * (double) HEIGHT;
         multiReturn.get(0).set(windowPosX, windowPosY);
-        double percentSizeX = (size.x) / aspectWorldWidth;
+        double percentSizeX = (size.x) / acpectDrawingRatio;
         double percentSizeY = (size.y) / canvasHeight;
-        double windowSizeX = percentSizeX * (float) WIDTH;
-        double windowSizeY = percentSizeY * (float) HEIGHT;
+        double windowSizeX = percentSizeX * (double) WIDTH;
+        double windowSizeY = percentSizeY * (double) HEIGHT;
         multiReturn.get(1).set(windowSizeX, windowSizeY);
 
         return multiReturn;
@@ -129,7 +129,7 @@ public abstract class GameObject {
     public void sendPositionData(PongClient client) {
         if (client.isConnected()) {
             client.sendRequest("POSITION " + position.y);
-            System.out.println("POSITION " + position.y);
+            //System.out.println("POSITION " + position.y);
         }
     }
 
@@ -149,7 +149,7 @@ public abstract class GameObject {
         HEIGHT = height;
     }
 
-    public void setPosition(HelpingVector position) {
+    public void setPosition(Vector2D position) {
         this.position = position;
     }
 
@@ -166,7 +166,7 @@ public abstract class GameObject {
         position.y = y;
     }
 
-    public void setSize(HelpingVector size) {
+    public void setSize(Vector2D size) {
         this.size = size;
     }
 
@@ -178,7 +178,7 @@ public abstract class GameObject {
         return canvasHeight;
     }
 
-    protected HelpingVector getPosition() {
+    protected Vector2D getPosition() {
         return position;
     }
 
@@ -190,7 +190,7 @@ public abstract class GameObject {
         return position.y;
     }
 
-    public HelpingVector getSize() {
+    public Vector2D getSize() {
         return size;
     }
 

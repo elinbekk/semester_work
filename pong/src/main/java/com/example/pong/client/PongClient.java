@@ -38,8 +38,7 @@ public class PongClient {
     public int getPlayerNumber() {
         try {
             String line = null;
-
-            System.out.println("reading in");
+            //System.out.println("reading in");
             line = bufferedReader.readLine();
             System.out.println(line);
             playerNumber = Integer.parseInt(line);
@@ -54,13 +53,12 @@ public class PongClient {
         double result = 0;
         try {
             String request = null;
-            System.out.println("Reading y");
+            //System.out.println("Reading y");
             request = bufferedReader.readLine();
             if (request != null) {
                 String[] tokens = request.split("\\s+");
                 String paddlePositionY = tokens[0];
                 result = Double.parseDouble(paddlePositionY);
-                System.out.println("read y");
             }
         } catch (IOException e) {
             e.printStackTrace();

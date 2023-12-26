@@ -4,12 +4,12 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-public class PongServerConnection implements Runnable {
+public class PongServerConnection extends Thread {
     private Socket socket;
     private BufferedReader bufferedReader;
     private PrintWriter printWriter;
-    private boolean keepReading = true;
-    public PongServerConnection otherClient = null;
+    private boolean continueReading = true;
+    public PongServerConnection opponent = null;
 
     private double paddlePositionY;
     private int playerNumber;
@@ -22,21 +22,20 @@ public class PongServerConnection implements Runnable {
     }
 
     public void run() {
-        String line = null;
+        String line;
         try {
             line = bufferedReader.readLine();
             System.out.println(line);
             sendResponse(String.valueOf(playerNumber));
-            System.out.println("sent");
-
-            while (otherClient == null) {
+            //System.out.println("send");
+            while (opponent == null) {
                 System.out.println("waiting for other client");
             }
             sendResponse("READY");
         } catch (Exception e) {
             e.printStackTrace();
         }
-        while (keepReading) {
+        while (continueReading) {
             try {
                 line = bufferedReader.readLine();
                 System.out.println(line);
@@ -49,12 +48,11 @@ public class PongServerConnection implements Runnable {
     public void handleRequest(String request) throws IOException {
         try {
             if (request != null) {
-                String[] tokens = request.split("\\s+");
-                String command = tokens[0];
-
+                String[] requestInfo = request.split("\\s+");
+                String command = requestInfo[0];
                 if (command.equalsIgnoreCase("DISCONNECT")) {
                     try {
-                        keepReading = false;
+                        continueReading = false;
                         bufferedReader.close();
                         printWriter.close();
                         socket.close();
@@ -62,10 +60,8 @@ public class PongServerConnection implements Runnable {
                         e.printStackTrace();
                     }
                 } else if (command.equalsIgnoreCase("POSITION")) {
-                    String[] information = request.split("\\s+");
-                    paddlePositionY = Double.parseDouble(information[1]);
-                    System.out.println("y = " + paddlePositionY);
-                    otherClient.sendResponse(Double.toString(paddlePositionY));
+                    paddlePositionY = Double.parseDouble(requestInfo[1]);
+                    opponent.sendResponse(Double.toString(paddlePositionY));
                 } else {
                     sendError(405, "Method Not Allowed", "You cannot use the '" + command + "' command on this server.");
                 }
@@ -78,7 +74,7 @@ public class PongServerConnection implements Runnable {
     private void sendResponse(String content) throws IOException {
         printWriter.println(content);
         printWriter.flush();
-        System.out.println("Sending: " + content);
+        System.out.println("Sending player № " + content);
     }
 
     private void sendError(int errorCode,

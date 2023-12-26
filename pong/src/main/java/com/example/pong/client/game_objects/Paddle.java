@@ -14,14 +14,14 @@ public class Paddle extends GameObject {
 
     }
 
-    public Paddle(HelpingVector position, HelpingVector size, Color fill) {
+    public Paddle(Vector2D position, Vector2D size, Color fill) {
         super(position, size);
         setFillColor(fill);
     }
 
     public void drawObject(GraphicsContext gc) {
         gc.setFill(fillColor);
-        List<HelpingVector> posSize = convertToWorld(position, size);
+        List<Vector2D> posSize = convertToDrawing(position, size);
         gc.fillRect(posSize.get(0).x, posSize.get(0).y, posSize.get(1).x, posSize.get(1).y);
     }
 

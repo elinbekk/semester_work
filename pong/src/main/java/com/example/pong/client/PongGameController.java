@@ -24,7 +24,7 @@ public class PongGameController {
     public Parent parent = null;
 
     public List<GameObject> gameObjects = new ArrayList<>();
-    public PongClient client = new PongClient("127.0.0.1", 1234, null);
+    public PongClient client = new PongClient("localhost", 1234, null);
     private int point1 = 0;
     private int point2 = 0;
     private boolean isGameOver = false;
@@ -55,10 +55,10 @@ public class PongGameController {
             @Override
             public void handle(KeyEvent event) {
                 switch (event.getCode()) {
-                    case W:
+                    case K:
                         pressedUp = true;
                         break;
-                    case S:
+                    case M:
                         pressedDown = true;
                         break;
                     default:
@@ -71,10 +71,10 @@ public class PongGameController {
             @Override
             public void handle(KeyEvent event) {
                 switch (event.getCode()) {
-                    case W:
+                    case K:
                         pressedUp = false;
                         break;
-                    case S:
+                    case M:
                         pressedDown = false;
                         break;
                     default:
@@ -92,11 +92,6 @@ public class PongGameController {
         connectToServer.setOnAction(value -> {
             client.connectToServer();
         });
-        Button disconnectFromServer = new Button("Disconnect");
-        disconnectFromServer.setOnAction(value -> {
-            client.disconnectFromServer();
-        });
-
         Button returnToMenu = new Button("Return to menu");
         returnToMenu.setOnAction(value -> {
             primaryStage.setTitle("Menu");
@@ -105,7 +100,7 @@ public class PongGameController {
                 client.disconnectFromServer();
             }
         });
-        buttonsBox.getChildren().addAll(connectToServer, disconnectFromServer, returnToMenu);
+        buttonsBox.getChildren().addAll(connectToServer, returnToMenu);
         topMenu.add(buttonsBox, 0, 0);
     }
 
@@ -121,19 +116,19 @@ public class PongGameController {
         gameCanvas.widthProperty().bind(wrapperPane.widthProperty());
         gameCanvas.heightProperty().bind(wrapperPane.heightProperty());
 
-        Ball ball = new Ball(new HelpingVector(), new HelpingVector(10, 10), Color.WHITE);
-        Paddle paddle1 = new Paddle(new HelpingVector(), new HelpingVector(10, 35), Color.WHITE);
-        Paddle paddle2 = new Paddle(new HelpingVector(), new HelpingVector(10, 35), Color.WHITE);
+        Ball ball = new Ball(new Vector2D(), new Vector2D(10, 10), Color.WHITE);
+        Paddle paddle1 = new Paddle(new Vector2D(), new Vector2D(10, 35), Color.WHITE);
+        Paddle paddle2 = new Paddle(new Vector2D(), new Vector2D(10, 35), Color.WHITE);
 
         TextGameObject scoreOne = new TextGameObject(Integer.toString(point1),
-                Font.font("arial", 40), new HelpingVector(), new HelpingVector(), Color.WHITE);
+                Font.font("impact", 40), new Vector2D(), new Vector2D(), Color.WHITE);
         TextGameObject scoreTwo = new TextGameObject(Integer.toString(point2),
-                Font.font("arial", 40), new HelpingVector(), new HelpingVector(), Color.WHITE);
+                Font.font("impact", 40), new Vector2D(), new Vector2D(), Color.WHITE);
 
         TextGameObject winner = new TextGameObject("You win!",
-                Font.font("impact", 80), new HelpingVector(-30.f, 0.f), new HelpingVector(), Color.WHITE);
+                Font.font("impact", 80), new Vector2D(-30, 0), new Vector2D(), Color.WHITE);
         TextGameObject loser = new TextGameObject("You lose!",
-                Font.font("impact", 80), new HelpingVector(-35.f, 0.f), new HelpingVector(), Color.WHITE);
+                Font.font("impact", 80), new Vector2D(-35, 0), new Vector2D(), Color.WHITE);
 
         gameObjects.add(ball);
         gameObjects.add(paddle1);
@@ -141,13 +136,10 @@ public class PongGameController {
         gameObjects.add(scoreOne);
         gameObjects.add(scoreTwo);
 
-        ball.setSpeed(new HelpingVector(10, 20));
-
+        ball.setSpeed(new Vector2D(10, 20));
         GraphicsContext context = gameCanvas.getGraphicsContext2D();
-
         GameObject.setCanvasWidth(200);
         GameObject.setCanvasHeight(200);
-
         paddle1.setPosition(-(GameObject.getCanvasWidth() / 2) + 5, 0);
         paddle2.setPosition((GameObject.getCanvasWidth() / 2) - 10, 0);
         scoreOne.setPosition(-(GameObject.getCanvasWidth() / 2) + 50, GameObject.getCanvasHeight()/2);
@@ -199,17 +191,17 @@ public class PongGameController {
     public void updatePaddlePosition(GameObject paddle1, GameObject paddle2) {
         if (client.playerNumber == 1) {
             if (pressedUp && (paddle1.getPositionY() >= -(GameObject.getCanvasHeight() / 2))) {
-                paddle1.setPosition(new HelpingVector(paddle1.getPositionX(), paddle1.getPositionY() - 2));
+                paddle1.setPosition(new Vector2D(paddle1.getPositionX(), paddle1.getPositionY() - 2));
             }
             if (pressedDown && (paddle1.getPositionY() <= (GameObject.getCanvasHeight() / 2) - 40)) {
-                paddle1.setPosition(new HelpingVector(paddle1.getPositionX(), paddle1.getPositionY() + 2));
+                paddle1.setPosition(new Vector2D(paddle1.getPositionX(), paddle1.getPositionY() + 2));
             }
         } else if (client.playerNumber == 2) {
             if (pressedUp && (paddle2.getPositionY() >= -(GameObject.getCanvasHeight() / 2))) {
-                paddle2.setPosition(new HelpingVector(paddle2.getPositionX(), paddle2.getPositionY() - 2));
+                paddle2.setPosition(new Vector2D(paddle2.getPositionX(), paddle2.getPositionY() - 2));
             }
             if (pressedDown && (paddle2.getPositionY() <= (GameObject.getCanvasHeight() / 2) - 40)) {
-                paddle2.setPosition(new HelpingVector(paddle2.getPositionX(), paddle2.getPositionY() + 2));
+                paddle2.setPosition(new Vector2D(paddle2.getPositionX(), paddle2.getPositionY() + 2));
             }
         }
     }
@@ -272,12 +264,12 @@ public class PongGameController {
         }
     }
     public void resetBall(GameObject ball) {
-        ball.setPosition(new HelpingVector());
-        ball.setSpeed(new HelpingVector(15, 20));
+        ball.setPosition(new Vector2D());
+        ball.setSpeed(new Vector2D(15, 20));
     }
     public void stopBall(GameObject ball) {
-        ball.setPosition(new HelpingVector());
-        ball.setSpeed(new HelpingVector());
+        ball.setPosition(new Vector2D());
+        ball.setSpeed(new Vector2D());
     }
     public void setBackgroundColor(Pane node, Paint fill) {
         node.setBackground(new Background(new BackgroundFill(fill, CornerRadii.EMPTY, Insets.EMPTY)));
