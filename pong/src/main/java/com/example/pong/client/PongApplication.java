@@ -1,6 +1,8 @@
 package com.example.pong.client;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -49,9 +51,12 @@ public class PongApplication extends Application {
         menu.add(playButton, 0, 0);
         GridPane.setHalignment(playButton, HPos.CENTER);
 
-        playButton.setOnAction(value -> {
-            game = new PongGameController();
-            game.start(primaryStage);
+        playButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                game = new PongGameController();
+                game.start(primaryStage);
+            }
         });
 
         Button exitButton = new Button("Exit");
@@ -62,8 +67,11 @@ public class PongApplication extends Application {
         menu.add(exitButton, 0, 2);
         GridPane.setHalignment(exitButton, HPos.CENTER);
 
-        exitButton.setOnAction(value -> {
-            Runtime.getRuntime().exit(0);
+        exitButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                Runtime.getRuntime().exit(0);
+            }
         });
     }
 

@@ -7,13 +7,6 @@ import javafx.scene.paint.Color;
 
 public class Paddle extends GameObject {
     private Color fillColor;
-
-    public Paddle() {
-        super();
-        setFillColor(Color.WHITE);
-
-    }
-
     public Paddle(Vector2D position, Vector2D size, Color fill) {
         super(position, size);
         setFillColor(fill);

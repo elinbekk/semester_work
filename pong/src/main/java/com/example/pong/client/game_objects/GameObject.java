@@ -9,18 +9,13 @@ import javafx.scene.canvas.GraphicsContext;
 public abstract class GameObject {
     protected static int WIDTH = 600;
     protected static int HEIGHT = 400;
-    protected static int canvasWidth = 500;
-    protected static int canvasHeight = 500;
+    protected static int canvasWidth;
+    protected static int canvasHeight;
 
     public Vector2D position;
     protected Vector2D size;
     protected Vector2D speed = new Vector2D();
     protected Vector2D accelleration = new Vector2D();
-
-    protected GameObject() {
-        setPosition(new Vector2D());
-        setSize(new Vector2D(10, 10));
-    }
 
     protected GameObject(Vector2D position, Vector2D size) {
         setPosition(position);
@@ -56,9 +51,7 @@ public abstract class GameObject {
 
     private boolean isPointCollision(Vector2D point, Vector2D pos, Vector2D size) {
         if ((point.x < (pos.x + size.x / 2)) && (point.x > (pos.x - size.x / 2))) {
-            if ((point.y < pos.y + size.y / 2) && (point.y > pos.y - size.y / 2)) {
-                return true;
-            }
+            return (point.y < pos.y + size.y / 2) && (point.y > pos.y - size.y / 2);
         }
         return false;
     }
@@ -85,10 +78,10 @@ public abstract class GameObject {
         double r1H = paddle.getSizeY();
         double r2W = paddle.getSizeX();
         double r2H = paddle.getSizeY();
-        Vector2D[] points = new Vector2D[]{topLeft, topRight, bottomLeft, bottomRight};
+        Vector2D[] paddlePoints = new Vector2D[]{topLeft, topRight, bottomLeft, bottomRight};
         Vector2D ballCenter = position.add(size.mult(0.5));
         Vector2D paddleCenter = paddle.getPosition().add(paddle.getSize().mult(0.5));
-        for (Vector2D point : points) {
+        for (Vector2D point : paddlePoints) {
             if (isBallCollision(point, diameter / 2, ballCenter, diameter / 2)) {
                 return true;
             }

@@ -38,7 +38,6 @@ public class PongClient {
     public int getPlayerNumber() {
         try {
             String line = null;
-            //System.out.println("reading in");
             line = bufferedReader.readLine();
             System.out.println(line);
             playerNumber = Integer.parseInt(line);
@@ -53,7 +52,6 @@ public class PongClient {
         double result = 0;
         try {
             String request = null;
-            //System.out.println("Reading y");
             request = bufferedReader.readLine();
             if (request != null) {
                 String[] tokens = request.split("\\s+");
@@ -70,10 +68,8 @@ public class PongClient {
         try {
             System.out.println("Connecting to server");
             socket = new Socket(hostname, port);
-
             bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             printWriter = new PrintWriter(socket.getOutputStream());
-
             sendRequest("Connected");
             System.out.println("Connected");
             getPlayerNumber();

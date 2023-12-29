@@ -15,6 +15,8 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.scene.input.KeyEvent;
 import javafx.event.EventHandler;
@@ -24,7 +26,7 @@ public class PongGameController {
     public Parent parent = null;
 
     public List<GameObject> gameObjects = new ArrayList<>();
-    public PongClient client = new PongClient("localhost", 1234, null);
+    public PongClient client = new PongClient("10.17.77.12", 1234, null);
     private int point1 = 0;
     private int point2 = 0;
     private boolean isGameOver = false;
@@ -89,10 +91,16 @@ public class PongGameController {
         buttonsBox.setAlignment(Pos.CENTER);
         buttonsBox.prefWidthProperty().bind(topMenu.widthProperty());
         Button connectToServer = new Button("Connect");
+        connectToServer.setFont(Font.font("Impact", FontWeight.EXTRA_LIGHT, FontPosture.REGULAR, 15));
+        connectToServer.setStyle("-fx-text-fill: white; -fx-background-color: black;");
+        connectToServer.setMinSize(90, 30);
         connectToServer.setOnAction(value -> {
             client.connectToServer();
         });
         Button returnToMenu = new Button("Return to menu");
+        returnToMenu.setFont(Font.font("Impact", FontWeight.EXTRA_LIGHT, FontPosture.REGULAR, 15));
+        returnToMenu.setStyle("-fx-text-fill: white; -fx-background-color: black;");
+        returnToMenu.setMinSize(90, 30);
         returnToMenu.setOnAction(value -> {
             primaryStage.setTitle("Menu");
             primaryStage.getScene().setRoot(mainMenu);

@@ -12,11 +12,11 @@ public class TextGameObject extends GameObject {
 
     private Color fillColor;
 
-    public TextGameObject() {
+    /*public TextGameObject() {
         super();
         setText("Default");
         SetFont(Font.font("Arial"));
-    }
+    }*/
 
     public TextGameObject(String text, Font font, Vector2D pos, Vector2D size, Color fill) {
         super(pos, size);

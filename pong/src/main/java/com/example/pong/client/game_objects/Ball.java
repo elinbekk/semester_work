@@ -9,11 +9,6 @@ import javafx.scene.paint.Color;
 public class Ball extends GameObject {
     private Color fillColor;
 
-    public Ball() {
-        super();
-        SetFillColor(Color.WHITE);
-    }
-
     public Ball(Vector2D position, Vector2D size, Color fill) {
         super(position, size);
         SetFillColor(fill);
