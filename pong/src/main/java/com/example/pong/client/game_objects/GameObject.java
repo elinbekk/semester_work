@@ -100,23 +100,23 @@ public abstract class GameObject {
     }
 
     protected List<Vector2D> convertToDrawing(Vector2D position, Vector2D size) {
-        List<Vector2D> multiReturn = new ArrayList();
-        multiReturn.add(new Vector2D());
-        multiReturn.add(new Vector2D());
+        List<Vector2D> coord = new ArrayList();
+        coord.add(new Vector2D());
+        coord.add(new Vector2D());
         double aspectRatio = (double) WIDTH / HEIGHT;
         double acpectDrawingRatio = canvasWidth * aspectRatio;
         double percentPosX = (position.x + ((double) canvasWidth / 2)) / canvasWidth;
         double percentPosY = (position.y + ((double) canvasHeight / 2)) / canvasHeight;
         double windowPosX = percentPosX * (double) WIDTH;
         double windowPosY = percentPosY * (double) HEIGHT;
-        multiReturn.get(0).set(windowPosX, windowPosY);
+        coord.get(0).set(windowPosX, windowPosY);
         double percentSizeX = (size.x) / acpectDrawingRatio;
         double percentSizeY = (size.y) / canvasHeight;
         double windowSizeX = percentSizeX * (double) WIDTH;
         double windowSizeY = percentSizeY * (double) HEIGHT;
-        multiReturn.get(1).set(windowSizeX, windowSizeY);
+        coord.get(1).set(windowSizeX, windowSizeY);
 
-        return multiReturn;
+        return coord;
     }
 
     public void sendPositionData(PongClient client) {

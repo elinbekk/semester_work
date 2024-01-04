@@ -26,7 +26,7 @@ public class PongGameController {
     public Parent parent = null;
 
     public List<GameObject> gameObjects = new ArrayList<>();
-    public PongClient client = new PongClient("10.17.77.12", 1234, null);
+    public PongClient client = new PongClient("192.168.182.246", 1234, null);
     private int point1 = 0;
     private int point2 = 0;
     private boolean isGameOver = false;
